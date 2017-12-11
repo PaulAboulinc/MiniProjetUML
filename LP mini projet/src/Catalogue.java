@@ -11,10 +11,10 @@ public class Catalogue implements I_Catalogue{
 	public Catalogue () {
 		listProduits = new ArrayList<I_Produit>(); 
 	}
-
+	//Vérifier dans controller que le prix et qte sont numériques et non nulles
 	@Override
 	public boolean addProduit(I_Produit produit) {
-		if (Arrays.asList(getNomProduits()).contains(produit.getNom()) || produit.getPrixUnitaireHT()<0) {
+		if (Arrays.asList(getNomProduits()).contains(produit.getNom()) || produit.getPrixUnitaireHT()<0 || produit.getPrixUnitaireHT()<0) {
 			return false;
 		}
 		Produit p = new Produit (produit);
@@ -24,7 +24,7 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {
-		if (Arrays.asList(getNomProduits()).contains(nom) || qte<0) {
+		if (Arrays.asList(getNomProduits()).contains(nom) || qte<0 || prix<0) {
 			return false;
 		}
 		Produit p = new Produit (nom, prix, qte);
@@ -59,8 +59,7 @@ public class Catalogue implements I_Catalogue{
 		if (Arrays.asList(getNomProduits()).contains(nomProduit)) {
 			for (I_Produit i_Produit : listProduits) {
 				if (i_Produit.getNom().equals(nomProduit)) {
-					i_Produit.ajouter(qteAchetee);
-					return true;
+					return i_Produit.ajouter(qteAchetee);
 				}
 			}
 		}
@@ -72,8 +71,7 @@ public class Catalogue implements I_Catalogue{
 		if (Arrays.asList(getNomProduits()).contains(nomProduit)) {
 			for (I_Produit i_Produit : listProduits) {
 				if (i_Produit.getNom().equals(nomProduit)) {
-					i_Produit.enlever(qteVendue);
-					return true;
+					return i_Produit.enlever(qteVendue);
 				}
 			}
 		}
@@ -100,8 +98,12 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public void clear() {
-		System.out.println("test git");		
+		listProduits.removeAll(listProduits);	
 	}
 	
+	@Override
+	public String toString () {
+		return listProduits.toString();
+	}
 
 }

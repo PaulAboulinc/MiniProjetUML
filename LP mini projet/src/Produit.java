@@ -20,12 +20,15 @@ public class Produit implements I_Produit {
 	
 	@Override
 	public boolean ajouter(int qteAchetee) {
-		this.quantiteStock += qteAchetee;
-		return true;
+		if (qteAchetee>0) {
+			this.quantiteStock += qteAchetee;
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public boolean enlever(int qteVendue) {
-		if (qteVendue<=this.quantiteStock){
+		if (qteVendue<=this.quantiteStock && qteVendue>0){
 			this.quantiteStock -= qteVendue;
 			return true;
 		} else {
