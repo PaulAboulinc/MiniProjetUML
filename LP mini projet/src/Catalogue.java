@@ -100,8 +100,7 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("test git");		
 	}
 	
 
