@@ -34,7 +34,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		cAchatVente.vendreProduit(combo.getSelectedItem().toString(), Integer.parseInt(txtQuantite.getText()));
+		cAchatVente.vendreProduit(combo.getSelectedItem().toString(), txtQuantite.getText());
 	}
 
 }
