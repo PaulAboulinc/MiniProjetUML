@@ -1,8 +1,11 @@
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-
 
 public class Catalogue implements I_Catalogue{
 	
@@ -14,7 +17,10 @@ public class Catalogue implements I_Catalogue{
 	//Vérifier dans controller que le prix et qte sont numériques et non nulles
 	@Override
 	public boolean addProduit(I_Produit produit) {
-		if (Arrays.asList(getNomProduits()).contains(produit.getNom()) || produit.getPrixUnitaireHT()<=0 || produit.getPrixUnitaireHT()<=0) {
+		if (produit == null) {
+			return false;
+		}
+		if (Arrays.asList(getNomProduits()).contains(produit.getNom().trim()) || produit.getPrixUnitaireHT()<=0 || produit.getPrixUnitaireHT()<=0 || produit.getQuantite()<0) {
 			return false;
 		}
 		Produit p = new Produit (produit);
@@ -24,10 +30,12 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {
-		if (Arrays.asList(getNomProduits()).contains(nom) || qte<=0 || prix<=0) {
+		if (Arrays.asList(getNomProduits()).contains(nom.trim()) || qte<0 || prix<=0) {
 			return false;
-		}
-		Produit p = new Produit (nom, prix, qte);
+		}	
+	    String n = nom.trim();
+	    n = n.replace("\t", " ");
+		Produit p = new Produit (n,  prix , qte);
 		listProduits.add(p);
 		return true;
 	}
@@ -35,9 +43,11 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public int addProduits(List<I_Produit> l) {
 		int i=0;
-		for (I_Produit i_Produit : l) {
-			if (addProduit(i_Produit)) {
-				i++;
+		if (l != null) {
+			for (I_Produit i_Produit : l) {
+				if (addProduit(i_Produit)) {
+					i++;
+				}
 			}
 		}
 		return i;
@@ -84,6 +94,7 @@ public class Catalogue implements I_Catalogue{
 		for (int i=0; i<listProduits.size(); i++) {
 			noms[i] = listProduits.get(i).getNom();
 		}
+		Collections.sort(Arrays.asList(noms));
 		return noms;
 	}
 
@@ -93,7 +104,7 @@ public class Catalogue implements I_Catalogue{
 		for (I_Produit i_Produit : listProduits) {
 			result += i_Produit.getPrixStockTTC();
 		}
-		return result;
+		return Math.round(result * 100.0) / 100.0;
 	}
 
 	@Override
@@ -103,7 +114,23 @@ public class Catalogue implements I_Catalogue{
 	
 	@Override
 	public String toString () {
-		return listProduits.toString();
+		BigDecimal montantTotal = new BigDecimal(this.getMontantTotalTTC());
+		montantTotal = montantTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
+		
+		String montantTotalTTC = ""+montantTotal;
+		montantTotalTTC = montantTotalTTC.replace(".", ",");
+		
+		String affichage="";
+		
+		for (I_Produit i_Produit : listProduits) {
+			affichage += i_Produit.toString();
+		}
+		
+		if (listProduits.isEmpty()) {
+			return "\n" + "Montant total TTC du stock : "+montantTotalTTC+" €";
+		} else {
+			return affichage+"\n" + "Montant total TTC du stock : "+montantTotalTTC+" €";
+		}
 	}
 
 }

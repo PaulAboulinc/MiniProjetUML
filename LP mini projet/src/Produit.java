@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 
 public class Produit implements I_Produit {
 
@@ -56,6 +58,16 @@ public class Produit implements I_Produit {
 		return this.quantiteStock*this.getPrixUnitaireTTC();
 	}
 	public String toString() {
-		return this.getNom()+"  PrixHT: "+this.getPrixUnitaireHT()+" pricTTC: "+this.getPrixUnitaireTTC()+ "      quantite en stock: "+this.getQuantite()+"\n";
+		BigDecimal prixHT = new BigDecimal(this.getPrixUnitaireHT());
+		prixHT = prixHT.setScale(2, BigDecimal.ROUND_HALF_UP);
+		BigDecimal prixTTC = new BigDecimal(this.getPrixUnitaireTTC());
+		prixTTC = prixTTC.setScale(2, BigDecimal.ROUND_HALF_UP);
+		
+		String prixHTT = ""+prixHT;
+		prixHTT = prixHTT.replace(".", ",");
+		String prixTTTC = ""+prixTTC;
+		prixTTTC = prixTTTC.replace(".", ",");
+		
+		return this.getNom()+" - prix HT : "+prixHTT+" € - prix TTC : "+prixTTTC+ " € - quantité en stock : "+this.getQuantite()+"\n";
 	}
 }

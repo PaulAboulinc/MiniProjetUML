@@ -7,7 +7,7 @@ public class ControllerStock {
 		catalogue = c;
 	}
 	
-	public void afficherQuantité () {
+	public void afficherQuantite () {
 		String afficher = catalogue.toString();
 		afficher += "\n \n Montant total TTC du stock "+catalogue.getMontantTotalTTC()+"€";
 		new FenetreAffichage(afficher);
