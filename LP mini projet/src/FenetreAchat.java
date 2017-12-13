@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class FenetreAchat extends JFrame implements ActionListener {
@@ -7,9 +8,11 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	private JButton btAchat;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
-
-	public FenetreAchat(String[] lesProduits) {
-
+	ControllerAchatVente cAchatVente;
+	
+	public FenetreAchat(ControllerAchatVente c ) {
+		
+		cAchatVente = c;
 		setTitle("Achat");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();
@@ -18,11 +21,11 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		txtQuantite = new JTextField(5);
 		txtQuantite.setText("0");
 
-		combo = new JComboBox<String>(lesProduits);
+		combo = new JComboBox<String>(cAchatVente.catalogue.getNomProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
-		contentPane.add(new JLabel("Quantité achetée"));
+		contentPane.add(new JLabel("Quantitï¿½ achetï¿½e"));
 		contentPane.add(txtQuantite);
 		contentPane.add(btAchat);
 
@@ -32,7 +35,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.dispose();
+		cAchatVente.acheterProduit(combo.getSelectedItem().toString(), Integer.parseInt(txtQuantite.getText()));
 	}
 
 }

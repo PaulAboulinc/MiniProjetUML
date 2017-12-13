@@ -16,9 +16,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 	I_Catalogue catalogue = new Catalogue();
-	ControllerProduit cProduit = new ControllerProduit();
-	ControllerAchatVente cAchatVente = new ControllerAchatVente();
-	ControllerStock cStock = new ControllerStock();
+	ControllerProduit cProduit = new ControllerProduit(catalogue);
+	ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
+	ControllerStock cStock = new ControllerStock(catalogue);
 
 	
 	public FenetrePrincipale() {
@@ -32,7 +32,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		JPanel panQuitter = new JPanel();
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FlowLayout());
-		btAfficher = new JButton("Quantités en stock");
+		btAfficher = new JButton("Quantitï¿½s en stock");
 		btNouveauProduit = new JButton("Nouveau Produit");
 		btSupprimerProduit = new JButton("Supprimer Produit");
 //		btNouvelleCategorie = new JButton("Nouvelle Categorie");
@@ -70,27 +70,27 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 	public void actionPerformed(ActionEvent e) {
 
-/* tabProduits permet de tester le fonctionnement des fenêtres avec un tableau de noms de produits "en dur"
-   Quand l'application fonctionnera, il faudra bien sûr récupérer les noms des produits dans le Catalogue */
-		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
-/* Même chose pour tabCategories (partie 4) */ 		
+/* tabProduits permet de tester le fonctionnement des fenï¿½tres avec un tableau de noms de produits "en dur"
+   Quand l'application fonctionnera, il faudra bien sï¿½r rï¿½cupï¿½rer les noms des produits dans le Catalogue */
+		String[] tabProduits = catalogue.getNomProduits();
+/* Mï¿½me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			cStock.afficherQuantitÃ©();
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit();
+			new FenetreNouveauProduit(cProduit);
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(tabProduits);
+			new FenetreSuppressionProduit(cProduit);
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat(cAchatVente);
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente(cAchatVente);
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);
