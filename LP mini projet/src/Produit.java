@@ -68,6 +68,6 @@ public class Produit implements I_Produit {
 		String prixTTTC = ""+prixTTC;
 		prixTTTC = prixTTTC.replace(".", ",");
 		
-		return this.getNom()+" - prix HT : "+prixHTT+" â‚¬ - prix TTC : "+prixTTTC+ " â‚¬ - quantitÃ© en stock : "+this.getQuantite()+"\n";
+		return this.getNom()+" - prix HT : "+prixHTT+" € - prix TTC : "+prixTTTC+ " € - quantité en stock : "+this.getQuantite()+"\n";
 	}
 }

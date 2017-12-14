@@ -127,9 +127,9 @@ public class Catalogue implements I_Catalogue{
 		}
 		
 		if (listProduits.isEmpty()) {
-			return "\n" + "Montant total TTC du stock : "+montantTotalTTC+" â‚¬";
+			return "\n" + "Montant total TTC du stock : "+montantTotalTTC+" €";
 		} else {
-			return affichage+"\n" + "Montant total TTC du stock : "+montantTotalTTC+" â‚¬";
+			return affichage+"\n" + "Montant total TTC du stock : "+montantTotalTTC+" €";
 		}
 	}
 
