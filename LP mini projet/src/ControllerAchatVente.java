@@ -12,17 +12,17 @@ public class ControllerAchatVente {
 		try {
 			qte = Integer.parseInt(q);
 		} catch (NumberFormatException n) {
-			new FenetreAffichage("La quantité n'est pas un entier ! \n");
+			new FenetreAffichage("La quantitÃ© n'est pas un entier ! \n");
 			return false;
         }
 		
 		if (catalogue.acheterStock(nom, qte)) {
-			new FenetreAffichage("Le stock a été mis à  jour !");
+			new FenetreAffichage("Le stock a Ã©tÃ© mis Ã  jour !");
 			return true;
 		}else {
-			String affichage = "Le stock n'a pas été mis à  jour ! \n";
+			String affichage = "Le stock n'a pas Ã©tÃ© mis Ã  jour ! \n";
 			if (qte <= 0) {
-				affichage += "La quantité ne peut pas être inférieur ou égal à  0 !  \n";
+				affichage += "La quantitÃ© ne peut pas Ãªtre infÃ©rieur ou Ã©gal Ã  0 !  \n";
 			}
 			new FenetreAffichage(affichage);
 			return false;
@@ -34,17 +34,17 @@ public class ControllerAchatVente {
 		try {
 			qte = Integer.parseInt(q);
 		} catch (NumberFormatException n) {
-			new FenetreAffichage("La quantité n'est pas un entier ! \n");
+			new FenetreAffichage("La quantitÃ© n'est pas un entier ! \n");
 			return false;
         }
 		
 		if (catalogue.vendreStock(nom, qte)) {
-			new FenetreAffichage("Le stock a été mis à  jour !");
+			new FenetreAffichage("Le stock a Ã©tÃ© mis Ã  jour !");
 			return true;
 		} else {
-			String affichage = "Le stock n'a pas été mis à  jour ! \n";
+			String affichage = "Le stock n'a pas Ã©tÃ© mis Ã  jour ! \n";
 			if (qte <= 0) {
-				affichage += "La quantité ne peut pas être inférieur ou égal à  0 !  \n";
+				affichage += "La quantitÃ© ne peut pas Ãªtre infÃ©rieur ou Ã©gal Ã  0 !  \n";
 			}
 			new FenetreAffichage(affichage);
 			return false;

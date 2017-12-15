@@ -21,28 +21,28 @@ public class ControllerProduit  {
 		try {
 			quantite = Integer.parseInt(q);
 		} catch (NumberFormatException n) {
-			new FenetreAffichage("La quantité n'est pas un entier ! \n");
+			new FenetreAffichage("La quantitÃ© n'est pas un entier ! \n");
 			return false;
         }
 		if (nom.trim().isEmpty()) {
-			new FenetreAffichage("Le nom ne peut pas être vide ! \n");
+			new FenetreAffichage("Le nom ne peut pas Ãªtre vide ! \n");
 			return false;
 		}
 		
 		boolean isAjoute = catalogue.addProduit(nom,prix,quantite);
 		if(isAjoute == true){
-			new FenetreAffichage("Le produit a été ajouté ! \n");
+			new FenetreAffichage("Le produit a Ã©tÃ© ajoutÃ© ! \n");
 			return true;
 		}else{
-			String affichage = "Le produit n'a pas été ajouté ! \n";
+			String affichage = "Le produit n'a pas Ã©tÃ© ajoutÃ© ! \n";
 			if (Arrays.asList(catalogue.getNomProduits()).contains(nom)) {
-				affichage += "Le nom est déjà  utilisé ! \n";
+				affichage += "Le nom est dÃ©jÃ  utilisÃ© ! \n";
 			}
 			if (prix <= 0) {
-				affichage += "Le prix ne peut pas être inférieur ou égal à  0 !  \n";
+				affichage += "Le prix ne peut pas Ãªtre infÃ©rieur ou Ã©gal Ã  0 !  \n";
 			}
 			if (quantite <= 0) {
-				affichage += "La quantité ne peut pas être inférieur ou égal à  0 !  \n";
+				affichage += "La quantitÃ© ne peut pas Ãªtre infï¿½rieur ou Ã©gal Ã  0 !  \n";
 			}
 			new FenetreAffichage (affichage);
 			return false;
@@ -52,10 +52,10 @@ public class ControllerProduit  {
 	public boolean suppressionProduit(String nom){
 		boolean isRemove = catalogue.removeProduit(nom);
 		if(isRemove == true){
-			new FenetreAffichage("Le produit a été supprimé !");
+			new FenetreAffichage("Le produit a Ã©tÃ© supprimÃ© !");
 			return true;
 		}else{
-			new FenetreAffichage("Le produit n'a pas été supprimé !");
+			new FenetreAffichage("Le produit n'a pas Ã©tÃ© supprimÃ© !");
 			return false;
 		}
 	}
