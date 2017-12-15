@@ -1,6 +1,9 @@
+package Vue;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import Controller.ControllerProduit;
 
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
@@ -15,7 +18,7 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		contentPane.setLayout(new FlowLayout());
 		btSupprimer = new JButton("Supprimer");
 
-		combo = new JComboBox<String>(controllerProduit.catalogue.getNomProduits());
+		combo = new JComboBox<String>(controllerProduit.getCatalogue().getNomProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);

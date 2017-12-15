@@ -1,4 +1,8 @@
+package Controller;
 import java.util.Arrays;
+
+import Model.I_Catalogue;
+import Vue.FenetreAffichage;
 
 
 public class ControllerProduit  {
@@ -58,5 +62,9 @@ public class ControllerProduit  {
 			new FenetreAffichage("Le produit n'a pas été supprimé !");
 			return false;
 		}
+	}
+	
+	public I_Catalogue getCatalogue () {
+		return catalogue;
 	}
 }

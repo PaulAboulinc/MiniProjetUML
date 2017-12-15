@@ -1,3 +1,4 @@
+package Model;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;

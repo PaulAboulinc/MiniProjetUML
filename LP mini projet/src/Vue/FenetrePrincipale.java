@@ -1,6 +1,13 @@
+package Vue;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import Controller.ControllerAchatVente;
+import Controller.ControllerProduit;
+import Controller.ControllerStock;
+import Model.Catalogue;
+import Model.I_Catalogue;
 
 
 

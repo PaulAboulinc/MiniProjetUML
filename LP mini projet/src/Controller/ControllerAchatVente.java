@@ -1,3 +1,6 @@
+package Controller;
+import Model.I_Catalogue;
+import Vue.FenetreAffichage;
 
 public class ControllerAchatVente {
 	
@@ -49,6 +52,10 @@ public class ControllerAchatVente {
 			new FenetreAffichage(affichage);
 			return false;
 		}
+	}
+	
+	public I_Catalogue getCatalogue () {
+		return catalogue;
 	}
 
 }

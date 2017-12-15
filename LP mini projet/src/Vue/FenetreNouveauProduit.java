@@ -1,6 +1,9 @@
+package Vue;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import Controller.ControllerProduit;
 
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 

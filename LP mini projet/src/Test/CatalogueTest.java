@@ -1,3 +1,4 @@
+package Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -5,6 +6,11 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import Model.Catalogue;
+import Model.I_Catalogue;
+import Model.I_Produit;
+import Model.Produit;
 
 
 public class CatalogueTest {

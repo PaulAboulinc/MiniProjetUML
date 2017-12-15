@@ -1,7 +1,10 @@
+package Vue;
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+
+import Controller.ControllerAchatVente;
 
 public class FenetreAchat extends JFrame implements ActionListener {
 
@@ -21,7 +24,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		txtQuantite = new JTextField(5);
 		txtQuantite.setText("0");
 
-		combo = new JComboBox<String>(cAchatVente.catalogue.getNomProduits());
+		combo = new JComboBox<String>(cAchatVente.getCatalogue().getNomProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
