@@ -14,13 +14,13 @@ public class CatalogueTest {
 	@Before
 	public void setUp() {
 		cat = new Catalogue();
-//		Si votre Catalogue est un Singleton, il faut changer la ligne précédente puis vider le Catalogue avec la méthode clear() comme indiqué Ã  la ligne suivante
+//		Si votre Catalogue est un Singleton, il faut changer la ligne prÃ©cÃ©dente puis vider le Catalogue avec la mÃ©thode clear() comme indiquÃ© Ã  la ligne suivante
 //		cat.clear();
 	}
 	
 	@Test
 	public void testConstructeurCatalogue() {
-		assertNotNull("créer catalogue", cat);
+		assertNotNull("crÃ©er catalogue", cat);
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class CatalogueTest {
 		cat.addProduit(p1);
 		I_Produit p2 = createProduit("Treets", 10, 1);
 		cat.addProduit(p2);
-		assertFalse("ajout deux fois mÃªme produit consécutif", cat.addProduit(p2));
+		assertFalse("ajout deux fois mÃªme produit consÃ©cutif", cat.addProduit(p2));
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class CatalogueTest {
 		cat.addProduit(p1);
 		I_Produit p2 = createProduit("Treets", 10, 1);
 		cat.addProduit(p2);
-		assertFalse("ajout deux fois mÃªme produit non consécutif", cat.addProduit(p1));
+		assertFalse("ajout deux fois mÃªme produit non consÃ©cutif", cat.addProduit(p1));
 	}
 	
 	@Test
@@ -68,7 +68,7 @@ public class CatalogueTest {
 		I_Produit p2 = createProduit("Treets", 10, 1);
 		cat.addProduit(p2);
 		I_Produit p3 = createProduit("Treets", 15, 2);
-		assertFalse("ajout deux produits avec mÃªme nom consécutif", cat.addProduit(p3));
+		assertFalse("ajout deux produits avec mÃªme nom consÃ©cutif", cat.addProduit(p3));
 	}
 	
 	@Test
@@ -86,7 +86,7 @@ public class CatalogueTest {
 		I_Produit p1 = createProduit("Mars", 10, 1);
 		cat.addProduit(p1);
 		I_Produit p2 = createProduit(" Mars", 15, 2);
-		assertFalse("ajout deux produits avec mÃªme nom mais un avec des espaces au début", cat.addProduit(p2));
+		assertFalse("ajout deux produits avec mÃªme nom mais un avec des espaces au dÃ©but", cat.addProduit(p2));
 	}
 	
 	@Test
@@ -94,7 +94,7 @@ public class CatalogueTest {
 		I_Produit p1 = createProduit("Mars", 10, 1);
 		cat.addProduit(p1);
 		I_Produit p2 = createProduit("	Mars", 15, 2);
-		assertFalse("ajout deux produits avec mÃªme nom mais un avec des tabulations au début", cat.addProduit(p2));
+		assertFalse("ajout deux produits avec mÃªme nom mais un avec des tabulations au dÃ©but", cat.addProduit(p2));
 	}
 	
 	@Test
@@ -116,7 +116,7 @@ public class CatalogueTest {
 	@Test
 	public void testAddProduitIProduit_stockNegatif() {
 		I_Produit p1 = createProduit("Raider", 10, -1);
-		assertFalse("ajout produit avec un stock négatif", cat.addProduit(p1));
+		assertFalse("ajout produit avec un stock nÃ©gatif", cat.addProduit(p1));
 	}
 
 	@Test
@@ -134,7 +134,7 @@ public class CatalogueTest {
 	@Test
 	public void testAddProduitIProduit_prixNegatif() {
 		I_Produit p1 = createProduit("Bounty", -5, 4);
-		assertFalse("ajout produit avec un prix négatif", cat.addProduit(p1));
+		assertFalse("ajout produit avec un prix nÃ©gatif", cat.addProduit(p1));
 	}	
 
 	
@@ -156,7 +156,7 @@ public class CatalogueTest {
 		cat.addProduit(p1);
 		I_Produit p2 = createProduit("Treets", 10, 1);
 		cat.addProduit(p2);
-		assertFalse("ajout deux fois mÃªme produit consécutif", cat.addProduit("Treets", 10, 1));
+		assertFalse("ajout deux fois mÃªme produit consÃ©cutif", cat.addProduit("Treets", 10, 1));
 	}
 	
 	@Test
@@ -165,21 +165,21 @@ public class CatalogueTest {
 		cat.addProduit(p1);
 		I_Produit p2 = createProduit("Treets", 10, 1);
 		cat.addProduit(p2);
-		assertFalse("ajout deux fois mÃªme produit non consécutif", cat.addProduit("Mars", 10, 1));
+		assertFalse("ajout deux fois mÃªme produit non consÃ©cutif", cat.addProduit("Mars", 10, 1));
 	}
 	
 	@Test
 	public void testAddProduitStringDoubleInt_deuxFoisProduitMemeNomEspacesAuDebut() {
 		I_Produit p1 = createProduit("Mars", 10, 1);
 		cat.addProduit(p1);
-		assertFalse("ajout deux fois mÃªme produit mais un avec espaces au début", cat.addProduit(" Mars", 10, 1));
+		assertFalse("ajout deux fois mÃªme produit mais un avec espaces au dÃ©but", cat.addProduit(" Mars", 10, 1));
 	}
 	
 	@Test
 	public void testAddProduitStringDoubleInt_deuxFoisProduitMemeNomTabulationsAuDebut() {
 		I_Produit p1 = createProduit("Mars", 10, 1);
 		cat.addProduit(p1);
-		assertFalse("ajout deux fois mÃªme produit mais un avec tabulations au début", cat.addProduit("	Mars", 10, 1));
+		assertFalse("ajout deux fois mÃªme produit mais un avec tabulations au dÃ©but", cat.addProduit("	Mars", 10, 1));
 	}
 	
 	@Test
@@ -198,7 +198,7 @@ public class CatalogueTest {
 	
 	@Test
 	public void testAddProduitStringDoubleInt_stockNegatif() {
-		assertFalse("ajout produit avec stock négatif", cat.addProduit("Raider", 10, -1));
+		assertFalse("ajout produit avec stock nÃ©gatif", cat.addProduit("Raider", 10, -1));
 	}
 
 	@Test
@@ -213,7 +213,7 @@ public class CatalogueTest {
 	
 	@Test
 	public void testAddProduitStringDoubleInt_prixNegatif() {
-		assertFalse("ajout produit avec prix négatif", cat.addProduit("Bounty", -5, 4));
+		assertFalse("ajout produit avec prix nÃ©gatif", cat.addProduit("Bounty", -5, 4));
 	}	
 
 	@Test
@@ -267,7 +267,7 @@ public class CatalogueTest {
 		liste.add(p6);
 		liste.add(p2);
 		liste.add(p4);
-		assertEquals("ajout liste avec un seul des produits déjÃ  dans le catalogue",3, cat.addProduits(liste));
+		assertEquals("ajout liste avec un seul des produits dÃ©jÃ  dans le catalogue",3, cat.addProduits(liste));
 	}
 	
 	@Test
@@ -287,7 +287,7 @@ public class CatalogueTest {
 		liste.add(p6);
 		liste.add(p2);
 		liste.add(p4);
-		assertEquals("ajout liste avec plusieurs produits déjÃ  dans le catalogue",2, cat.addProduits(liste));
+		assertEquals("ajout liste avec plusieurs produits dÃ©jÃ  dans le catalogue",2, cat.addProduits(liste));
 	}
 	
 	@Test
@@ -299,7 +299,7 @@ public class CatalogueTest {
 		List<I_Produit> liste = new ArrayList<I_Produit>();
 		liste.add(p1);
 		liste.add(p2);
-		assertEquals("ajout liste avec tous les produits déjÃ  dans le catalogue",0, cat.addProduits(liste));
+		assertEquals("ajout liste avec tous les produits dÃ©jÃ  dans le catalogue",0, cat.addProduits(liste));
 	}
 		
 	@Test
@@ -333,7 +333,7 @@ public class CatalogueTest {
 		liste.add(p6);
 		liste.add(p2);
 		liste.add(p4);
-		assertEquals("ajout liste avec produit espaces au début du nom",3, cat.addProduits(liste));
+		assertEquals("ajout liste avec produit espaces au dÃ©but du nom",3, cat.addProduits(liste));
 	}
 		
 	@Test
@@ -353,7 +353,7 @@ public class CatalogueTest {
 		liste.add(p6);
 		liste.add(p2);
 		liste.add(p4);
-		assertEquals("ajout liste avec produit tabulations au début du nom",3, cat.addProduits(liste));
+		assertEquals("ajout liste avec produit tabulations au dÃ©but du nom",3, cat.addProduits(liste));
 	}	
 	
 	@Test
@@ -405,7 +405,7 @@ public class CatalogueTest {
 		liste.add(p1);
 		liste.add(p2);
 		liste.add(p3);
-		assertEquals("ajout liste produit avec stock négatif",2, cat.addProduits(liste));
+		assertEquals("ajout liste produit avec stock nÃ©gatif",2, cat.addProduits(liste));
 	}
 		
 	@Test
@@ -435,7 +435,7 @@ public class CatalogueTest {
 		I_Produit p2 = createProduit("Nuts", 4, 6);
 		liste.add(p1);
 		liste.add(p2);
-		assertEquals("ajout liste produit avec prix négatif",1, cat.addProduits(liste));
+		assertEquals("ajout liste produit avec prix nÃ©gatif",1, cat.addProduits(liste));
 	}
 
 	@Test
@@ -483,7 +483,7 @@ public class CatalogueTest {
 		cat.addProduit("Mars", 10, 1);
 		cat.addProduit("Treets", 10, 1);
 		cat.addProduit("Raider", 12, 2);
-		assertFalse("acheter quantité négative", cat.acheterStock("Mars", -4));
+		assertFalse("acheter quantitÃ© nÃ©gative", cat.acheterStock("Mars", -4));
 	}	
 		
 	@Test
@@ -491,7 +491,7 @@ public class CatalogueTest {
 		cat.addProduit("Mars", 10, 1);
 		cat.addProduit("Treets", 10, 1);
 		cat.addProduit("Raider", 12, 2);
-		assertFalse("acheter quantité nulle", cat.acheterStock("Treets", 0));
+		assertFalse("acheter quantitÃ© nulle", cat.acheterStock("Treets", 0));
 	}	
 
 	@Test
@@ -515,7 +515,7 @@ public class CatalogueTest {
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 0);
 		cat.addProduit("Raider", 12, 3);
-		assertFalse("vendre quantité négative", cat.vendreStock("Mars", -4));
+		assertFalse("vendre quantitÃ© nÃ©gative", cat.vendreStock("Mars", -4));
 	}	
 	
 	@Test
@@ -523,7 +523,7 @@ public class CatalogueTest {
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 0);
 		cat.addProduit("Raider", 12, 3);
-		assertFalse("vendre quantité nulle", cat.vendreStock("Treets", 0));
+		assertFalse("vendre quantitÃ© nulle", cat.vendreStock("Treets", 0));
 	}
 	
 	@Test
@@ -545,56 +545,56 @@ public class CatalogueTest {
 	@Test
 	public void testGetNomProduits_vide() {
 		String[] tab0 = new String[0];
-		assertArrayEquals("recupère nom produits catalogue vide", tab0, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produits catalogue vide", tab0, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduit() {
 		String[] tab = {"Mars"};
 		cat.addProduit("Mars", 10, 1);
-		assertArrayEquals("recupère nom produits avec un seul produit", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produits avec un seul produit", tab, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduitAvecNomEspacesAuDebut() {
 		String[] tab = {"Mars"};
 		cat.addProduit(" Mars", 10, 1);
-		assertArrayEquals("recupère nom produit avec espace debut ; les espaces au début ne doivent pas Ãªtre stockés", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produit avec espace debut ; les espaces au dÃ©but ne doivent pas Ãªtre stockÃ©s", tab, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduitAvecNomEspacesALaFin() {
 		String[] tab = {"Mars"};
 		cat.addProduit("Mars ", 10, 1);
-		assertArrayEquals("recupère nom produit avec espace fin ; les espaces Ã  la fin ne doivent pas Ãªtre stockés", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produit avec espace fin ; les espaces Ã  la fin ne doivent pas Ãªtre stockÃ©s", tab, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduitAvecNomEspacesAuMilieu() {
 		String[] tab = {"Kit Kat"};
 		cat.addProduit("Kit Kat", 10, 1);
-		assertArrayEquals("recupère nom produit avec des espace au milieu", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produit avec des espace au milieu", tab, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduitAvecNomTabulationsAuDebut() {
 		String[] tab = {"Mars"};
 		cat.addProduit("	Mars", 10, 1);
-		assertArrayEquals("recupère nom produit avec tabulation debut ; les tabulations au début ne doivent pas Ãªtre stockés", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produit avec tabulation debut ; les tabulations au dÃ©but ne doivent pas Ãªtre stockÃ©s", tab, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduitAvecNomTabulationsALaFin() {
 		String[] tab = {"Mars"};
 		cat.addProduit("Mars	", 10, 1);
-		assertArrayEquals("recupère nom produit avec tabulation fin ; les tabulations Ã  la fin ne doivent pas Ãªtre stockés", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produit avec tabulation fin ; les tabulations Ã  la fin ne doivent pas Ãªtre stockÃ©s", tab, cat.getNomProduits());
 	}
 	
 	@Test
 	public void testGetNomProduits_unProduitAvecNomTabulationsAuMilieu() {
 		String[] tab = {"Kit Kat"};
 		cat.addProduit("Kit	Kat", 10, 1);
-		assertArrayEquals("recupère nom produit avec des tabulations au milieu ; les tabulations au milieu doivent Ãªtre remplacées par des espaces", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom produit avec des tabulations au milieu ; les tabulations au milieu doivent Ãªtre remplacÃ©es par des espaces", tab, cat.getNomProduits());
 	}
 	
 	@Test
@@ -602,7 +602,7 @@ public class CatalogueTest {
 		String[] tab = {"Mars", "Treets"};
 		cat.addProduit("Mars", 10, 1);
 		cat.addProduit("Treets", 10, 1);
-		assertArrayEquals("recupère nom de deux produits", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom de deux produits", tab, cat.getNomProduits());
 	}
 		
 	@Test
@@ -611,7 +611,7 @@ public class CatalogueTest {
 		cat.addProduit("Mars", 10, 1);
 		cat.addProduit("Raider", 12, 2);
 		cat.addProduit("Treets", 10, 1);
-		assertArrayEquals("recupère nom de plusieurs produits ajoutés dans ordre alphabétique", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom de plusieurs produits ajoutÃ©s dans ordre alphabÃ©tique", tab, cat.getNomProduits());
 	}	
 		
 	@Test
@@ -621,7 +621,7 @@ public class CatalogueTest {
 		cat.addProduit("Treets", 10, 1);
 		cat.addProduit("Raider", 12, 2);
 		cat.addProduit("Bounty", 12, 2);
-		assertArrayEquals("recupère nom de plusieurs produits ajoutés dans ordre aléatoire (doivent Ãªtre retournés dans l'ordre alphabétique)", tab, cat.getNomProduits());
+		assertArrayEquals("recupÃ¨re nom de plusieurs produits ajoutÃ©s dans ordre alÃ©atoire (doivent Ãªtre retournÃ©s dans l'ordre alphabÃ©tique)", tab, cat.getNomProduits());
 	}
 	
 	@Test
@@ -684,23 +684,23 @@ public class CatalogueTest {
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 12.67, 1);
 		cat.addProduit("Nuts", 12.67, 1);
-		assertEquals("c'est le montant total TTC qu'il faut arrondir, pas les prix TTC des différents produits",150.41,cat.getMontantTotalTTC(),0);
+		assertEquals("c'est le montant total TTC qu'il faut arrondir, pas les prix TTC des diffÃ©rents produits",150.41,cat.getMontantTotalTTC(),0);
 	}
 	
 	@Test
 	public void testToString_CatalogueVide() {
 		String resultatAttendu = "\n" +
-								 "Montant total TTC du stock : 0,00 €";
+								 "Montant total TTC du stock : 0,00 â‚¬";
 		assertEquals("toString catalogue vide", resultatAttendu, cat.toString());
 	}
 	
 	@Test	
 	public void testToString_CatalogueAvecDesProduits_TotalAvecAucunChiffreApresVirgule() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-								 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-								 "Raider - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+								 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+								 "Raider - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
 								 "\n" +
-								 "Montant total TTC du stock : 120,00 €";
+								 "Montant total TTC du stock : 120,00 â‚¬";
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
@@ -709,11 +709,11 @@ public class CatalogueTest {
 	
 	@Test
 	public void testToString_CatalogueAvecDesProduits_AvecDesEspaceDansLesNomsDesProduit() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-				 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-				 "Kit Kat - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+				 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+				 "Kit Kat - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
 				 "\n" +
-				 "Montant total TTC du stock : 120,00 €";
+				 "Montant total TTC du stock : 120,00 â‚¬";
 		cat.addProduit("Mars ", 10, 5);
 		cat.addProduit(" Treets", 10, 4);
 		cat.addProduit("Kit Kat", 1, 10);
@@ -722,11 +722,11 @@ public class CatalogueTest {
 	
 	@Test
 	public void testToString_CatalogueAvecDesProduits_AvecDesTabulationsDansLesNomsDesProduit() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-				 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-				 "Kit Kat - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+				 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+				 "Kit Kat - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
 				 "\n" +
-				 "Montant total TTC du stock : 120,00 €";
+				 "Montant total TTC du stock : 120,00 â‚¬";
 		cat.addProduit("Mars	", 10, 5);
 		cat.addProduit("	Treets", 10, 4);
 		cat.addProduit("Kit	Kat", 1, 10);
@@ -735,62 +735,62 @@ public class CatalogueTest {
 	
 	@Test
 	public void testToString_CatalogueAvecDesProduits_TotalAvecUnChiffreApresVirgule() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-								 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-								 "Raider - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
-								 "Twix - prix HT : 10,45 € - prix TTC : 12,54 € - quantité en stock : 5" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+								 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+								 "Raider - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
+								 "Twix - prix HT : 10,45 â‚¬ - prix TTC : 12,54 â‚¬ - quantitÃ© en stock : 5" + "\n" +
 								 "\n" +
-								 "Montant total TTC du stock : 182,70 €";
+								 "Montant total TTC du stock : 182,70 â‚¬";
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.45, 5);
-		assertEquals("toString catalogue avec un total d'un chiffre après la virgule", resultatAttendu, cat.toString());
+		assertEquals("toString catalogue avec un total d'un chiffre aprÃ¨s la virgule", resultatAttendu, cat.toString());
 	}
 		
 	@Test
 	public void testToString_CatalogueAvecDesProduits_TotalAvecDeuxChiffresApresVirgule() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-								 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-								 "Raider - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
-								 "Twix - prix HT : 10,40 € - prix TTC : 12,48 € - quantité en stock : 1" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+								 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+								 "Raider - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
+								 "Twix - prix HT : 10,40 â‚¬ - prix TTC : 12,48 â‚¬ - quantitÃ© en stock : 1" + "\n" +
 								 "\n" +
-								 "Montant total TTC du stock : 132,48 €";
+								 "Montant total TTC du stock : 132,48 â‚¬";
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.4, 1);
-		assertEquals("toString catalogue avec un total de deux chiffres après virgule", resultatAttendu, cat.toString());
+		assertEquals("toString catalogue avec un total de deux chiffres aprÃ¨s virgule", resultatAttendu, cat.toString());
 	}
 	
 	@Test
 	public void testToString_CatalogueAvecDesProduits_TotalAvecTroisChiffresApresVirguleArrondiInferieur() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-								 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-								 "Raider - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
-								 "Twix - prix HT : 10,47 € - prix TTC : 12,56 € - quantité en stock : 1" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+								 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+								 "Raider - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
+								 "Twix - prix HT : 10,47 â‚¬ - prix TTC : 12,56 â‚¬ - quantitÃ© en stock : 1" + "\n" +
 								 "\n" +
-								 "Montant total TTC du stock : 132,56 €";
+								 "Montant total TTC du stock : 132,56 â‚¬";
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.47, 1);
-		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calculé avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
+		assertEquals("on affiche que deux chiffres aprÃ¨s la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calculÃ© avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
 	}
 	
 	@Test
 	public void testToString_CatalogueAvecDesProduits_TotalAvecTroisChiffresApresVirguleArrondiSuperieur() {
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n" +
-								 "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n" +
-								 "Raider - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n" +
-								 "Twix - prix HT : 10,47 € - prix TTC : 12,56 € - quantité en stock : 2" + "\n" +
+		String resultatAttendu = "Mars - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 5" + "\n" +
+								 "Treets - prix HT : 10,00 â‚¬ - prix TTC : 12,00 â‚¬ - quantitÃ© en stock : 4" + "\n" +
+								 "Raider - prix HT : 1,00 â‚¬ - prix TTC : 1,20 â‚¬ - quantitÃ© en stock : 10" + "\n" +
+								 "Twix - prix HT : 10,47 â‚¬ - prix TTC : 12,56 â‚¬ - quantitÃ© en stock : 2" + "\n" +
 								 "\n" +
-								 "Montant total TTC du stock : 145,13 €";
+								 "Montant total TTC du stock : 145,13 â‚¬";
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.47, 2);
-		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calculé avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
+		assertEquals("on affiche que deux chiffres aprÃ¨s la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calculÃ© avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
 	}
 	
 	@Test
@@ -800,7 +800,7 @@ public class CatalogueTest {
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.47, 2);
 		cat.clear();
-		assertEquals("On clear tout !", "\n"+"Montant total TTC du stock : 0,00 €", cat.toString());
+		assertEquals("On clear tout !", "\n"+"Montant total TTC du stock : 0,00 â‚¬", cat.toString());
 	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {

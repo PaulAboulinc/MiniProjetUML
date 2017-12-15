@@ -32,7 +32,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		JPanel panQuitter = new JPanel();
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FlowLayout());
-		btAfficher = new JButton("Quantit�s en stock");
+		btAfficher = new JButton("Quantités en stock");
 		btNouveauProduit = new JButton("Nouveau Produit");
 		btSupprimerProduit = new JButton("Supprimer Produit");
 //		btNouvelleCategorie = new JButton("Nouvelle Categorie");
@@ -71,7 +71,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	public void actionPerformed(ActionEvent e) {
 
 /* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
-   Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
+   Quand l'application fonctionnera, il faudra bien sûr récupérer les noms des produits dans le Catalogue */
 		String[] tabProduits = catalogue.getNomProduits();
 /* M�me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
