@@ -81,12 +81,12 @@ public class ProduitDAO {
 			e.printStackTrace();
 		}
 		I_Produit p = null;
-		try {
+		/*try {
 			p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		List<I_Produit> listProduits = new ArrayList<I_Produit>();
 		
 		try {
@@ -102,18 +102,18 @@ public class ProduitDAO {
 	public List<I_Produit> findByNameProduit (String value) {
 		try {
 			PreparedStatement pst = cn.prepareStatement("SELECT * FROM Produits WHERE nom = ?");
-			pst.setString(2, value);
+			pst.setString(1, value);
 			rs = pst.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		I_Produit p = null;
-		try {
+		/*try {
 			p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		List<I_Produit> listProduits = new ArrayList<I_Produit>();
 		
 		try {
@@ -127,13 +127,33 @@ public class ProduitDAO {
 		return listProduits;
 	}
 	public void updateProduit (I_Produit p) {
-		
+		try {
+			PreparedStatement pst = cn.prepareStatement("UPDATE Produits SET prix = ?, quantite = ? WHERE nom = ?");
+			pst.setDouble(1, p.getPrixUnitaireHT());
+			pst.setInt(2, p.getQuantite());
+			pst.setString(3, p.getNom());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	public void deleteProduit (int id) {
-		
+		try {
+			PreparedStatement pst = cn.prepareStatement("DELETE Produits WHERE id = ?");
+			pst.setInt(1, id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	public void deleteProduit (String key) {
-		
+	public void deleteProduit (String nom) {
+		try {
+			PreparedStatement pst = cn.prepareStatement("DELETE Produits WHERE nom = ?");
+			pst.setString(1, nom);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
