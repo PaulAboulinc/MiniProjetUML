@@ -125,6 +125,18 @@ public class ProduitDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateQuantite (String nom, int qte) {
+		try {
+			PreparedStatement pst = cn.prepareStatement("UPDATE Produits SET quantite = ? WHERE nom = ?");
+			pst.setInt(1, qte);
+			pst.setString(2, nom);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void deleteProduit (int id) {
 		try {
 			PreparedStatement pst = cn.prepareStatement("DELETE Produits WHERE id = ?");
