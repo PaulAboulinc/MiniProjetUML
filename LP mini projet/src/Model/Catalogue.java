@@ -9,16 +9,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import DAO.ProduitDAO;
+import Vue.FenetreAffichage;
 
 public class Catalogue implements I_Catalogue{
 	
 	public List<I_Produit> listProduits;
-	
+	ProduitDAO produitDAO;
 	public Catalogue () {
-		ProduitDAO produitDOA = new ProduitDAO();
-		listProduits = produitDOA.findAllProduit(); 
+		produitDAO = new ProduitDAO();
+		listProduits = produitDAO.findAllProduit(); 
 		//listProduits = new ArrayList<I_Produit>(); 
-		//zroighhzohzogz
 	}
 	//Vérifier dans controller que le prix et qte sont numériques et non nulles
 	@Override
