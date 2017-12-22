@@ -8,8 +8,9 @@ import java.sql.Statement;
 
 public class ConnexionBD {
 	private Connection cn = null;
+	private static ConnexionBD instance;
 	
-	public ConnexionBD () {
+	private ConnexionBD () {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -22,7 +23,16 @@ public class ConnexionBD {
 		}
 	}
 	
+	public synchronized ConnexionBD getInstance(){
+		if(instance == null){
+			return new ConnexionBD();
+		}
+		return instance;
+	}
+	
 	public Connection getConnection () {
 		return cn;
 	}
+	
+	
 }
