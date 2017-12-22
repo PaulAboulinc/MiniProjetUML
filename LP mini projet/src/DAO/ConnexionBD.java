@@ -23,7 +23,7 @@ public class ConnexionBD {
 		}
 	}
 	
-	public synchronized ConnexionBD getInstance(){
+	public synchronized static ConnexionBD getInstance(){
 		if(instance == null){
 			return new ConnexionBD();
 		}

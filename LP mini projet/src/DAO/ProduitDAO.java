@@ -19,7 +19,7 @@ public class ProduitDAO {
 	private ResultSet rs = null;
 	
 	public ProduitDAO () {
-		ConnexionBD connexionBD = new ConnexionBD ();
+		ConnexionBD connexionBD = ConnexionBD.getInstance();
 		cn = connexionBD.getConnection();
 		
 		try {
