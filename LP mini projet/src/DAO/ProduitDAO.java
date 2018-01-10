@@ -12,7 +12,7 @@ import java.util.List;
 import Model.I_Produit;
 import Model.Produit;
 
-public class ProduitDAO {
+public class ProduitDAO implements I_ProduitDAO{
 	
 	private Connection cn = null;
 	private Statement st = null;
@@ -154,9 +154,5 @@ public class ProduitDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	
-	
-	
+	}	
 }

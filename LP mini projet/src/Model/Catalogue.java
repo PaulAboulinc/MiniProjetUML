@@ -8,15 +8,18 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import DAO.I_ProduitDAO;
 import DAO.ProduitDAO;
+import DAO.ProduitFactory;
 import Vue.FenetreAffichage;
 
 public class Catalogue implements I_Catalogue{
 	
 	public List<I_Produit> listProduits;
-	ProduitDAO produitDAO;
+	ProduitFactory produitFactory = new ProduitFactory();
+	I_ProduitDAO produitDAO;
 	public Catalogue () {
-		produitDAO = new ProduitDAO();
+		produitDAO = (I_ProduitDAO) produitFactory.createProduit();
 		listProduits = produitDAO.findAllProduit(); 
 		//listProduits = new ArrayList<I_Produit>(); 
 	}
@@ -30,6 +33,7 @@ public class Catalogue implements I_Catalogue{
 			return false;
 		}
 		Produit p = new Produit (produit);
+		produitDAO.createProduit(p);
 		listProduits.add(p);
 		return true;
 	}
@@ -42,6 +46,7 @@ public class Catalogue implements I_Catalogue{
 	    String n = nom.trim();
 	    n = n.replace("\t", " ");
 		Produit p = new Produit (n,  prix , qte);
+		produitDAO.createProduit(p);
 		listProduits.add(p);
 		return true;
 	}
@@ -52,6 +57,7 @@ public class Catalogue implements I_Catalogue{
 		if (l != null) {
 			for (I_Produit i_Produit : l) {
 				if (addProduit(i_Produit)) {
+					produitDAO.createProduit(i_Produit);
 					i++;
 				}
 			}
@@ -63,6 +69,7 @@ public class Catalogue implements I_Catalogue{
 	public boolean removeProduit(String nom) {
 		for (I_Produit i_Produit : listProduits) {
 			if (i_Produit.getNom().equals(nom)) {
+				produitDAO.deleteProduit(nom);
 				listProduits.remove(i_Produit);
 				return true;
 			}
@@ -75,6 +82,7 @@ public class Catalogue implements I_Catalogue{
 		if (Arrays.asList(getNomProduits()).contains(nomProduit)) {
 			for (I_Produit i_Produit : listProduits) {
 				if (i_Produit.getNom().equals(nomProduit)) {
+					produitDAO.updateQuantite(nomProduit, i_Produit.getQuantite()+qteAchetee);
 					return i_Produit.ajouter(qteAchetee);
 				}
 			}
@@ -87,6 +95,7 @@ public class Catalogue implements I_Catalogue{
 		if (Arrays.asList(getNomProduits()).contains(nomProduit)) {
 			for (I_Produit i_Produit : listProduits) {
 				if (i_Produit.getNom().equals(nomProduit)) {
+					produitDAO.updateQuantite(nomProduit, i_Produit.getQuantite()-qteVendue);
 					return i_Produit.enlever(qteVendue);
 				}
 			}
