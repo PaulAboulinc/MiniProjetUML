@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import DAO.ProduitDAO;
 import Model.Catalogue;
 import Model.I_Catalogue;
 import Model.I_Produit;
@@ -21,7 +23,7 @@ public class CatalogueTest {
 	public void setUp() {
 		cat = new Catalogue();
 //		Si votre Catalogue est un Singleton, il faut changer la ligne précédente puis vider le Catalogue avec la méthode clear() comme indiqué à la ligne suivante
-//		cat.clear();
+		cat.clear();
 	}
 	
 	@Test

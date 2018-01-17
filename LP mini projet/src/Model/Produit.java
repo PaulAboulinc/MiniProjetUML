@@ -58,17 +58,26 @@ public class Produit implements I_Produit {
 	public double getPrixStockTTC() {
 		return this.quantiteStock*this.getPrixUnitaireTTC();
 	}
+	
+	public String getPrixUnitaireHTEnFormatString () {
+		return getPrixEnFormatString(this.getPrixUnitaireHT());
+	}
+	
+	public String getPrixUnitaireTTCEnFormatString () {
+		return getPrixEnFormatString(this.getPrixUnitaireTTC());
+	}
+	
+	public String getPrixEnFormatString (double prix) {
+		BigDecimal bigDecimalPrix = new BigDecimal(prix);
+		bigDecimalPrix = bigDecimalPrix.setScale(2, BigDecimal.ROUND_HALF_UP);
+		String stringPrix = ""+bigDecimalPrix;
+		stringPrix = stringPrix.replace(".", ",");
+		return stringPrix;
+	}
+	
 	public String toString() {
-		BigDecimal prixHT = new BigDecimal(this.getPrixUnitaireHT());
-		prixHT = prixHT.setScale(2, BigDecimal.ROUND_HALF_UP);
-		BigDecimal prixTTC = new BigDecimal(this.getPrixUnitaireTTC());
-		prixTTC = prixTTC.setScale(2, BigDecimal.ROUND_HALF_UP);
-		
-		String prixHTT = ""+prixHT;
-		prixHTT = prixHTT.replace(".", ",");
-		String prixTTTC = ""+prixTTC;
-		prixTTTC = prixTTTC.replace(".", ",");
-		
-		return this.getNom()+" - prix HT : "+prixHTT+" € - prix TTC : "+prixTTTC+ " € - quantité en stock : "+this.getQuantite()+"\n";
+		String prixUnitaireHT = getPrixUnitaireHTEnFormatString();
+		String prixUnitaireTTC = getPrixUnitaireTTCEnFormatString();
+		return this.getNom()+" - prix HT : "+prixUnitaireHT+" € - prix TTC : "+prixUnitaireTTC+ " € - quantité en stock : "+this.getQuantite()+"\n";
 	}
 }

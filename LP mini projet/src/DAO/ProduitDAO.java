@@ -23,71 +23,34 @@ public class ProduitDAO implements I_ProduitDAO{
 		cn = connexionBD.getConnection();
 		
 		try {
-			st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			rs = st.executeQuery("SELECT nom,prix,quantite FROM Produits ORDER BY id");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public boolean createProduit (String nom, Double prix, int quantite) {
-		
-		try {
-			CallableStatement cst = cn.prepareCall("{call addProduit(?,?,?)}");
-			cst.setString(1, nom);
-			cst.setDouble(2, prix);
-			cst.setInt(3, quantite);
-			return cst.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 	
 	public boolean createProduit (I_Produit p) {
 		try {
-			CallableStatement cst = cn.prepareCall("{call addProduit(?,?,?)}");
-			cst.setString(1, p.getNom());
-			cst.setDouble(2, p.getPrixUnitaireHT());
-			cst.setInt(3, p.getQuantite());
-			return cst.execute();
+			rs.moveToInsertRow();
+			rs.updateString("nom",p.getNom());
+			rs.updateDouble("prix", p.getPrixUnitaireHT());
+			rs.updateInt("quantite", p.getQuantite());
+			rs.insertRow();
+			rs = st.executeQuery("SELECT nom,prix,quantite FROM Produits ORDER BY id");
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
-	public I_Produit findProduitById (int id) {
-		try {
-			PreparedStatement pst = cn.prepareStatement("SELECT * FROM Produits WHERE id >= ?");
-			pst.setInt(1,id);
-			rs = pst.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		I_Produit p = null;
-		try {
-			p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return p;
-	}
+	
 	public List<I_Produit> findAllProduit () {
-		try {
-			rs = st.executeQuery("SELECT * FROM Produits");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		I_Produit p = null;
-		/*try {
-			p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		List<I_Produit> listProduits = new ArrayList<I_Produit>();
 		
 		try {
+			rs.beforeFirst();
 			while (rs.next()) {
 				p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
 				listProduits.add(p);
@@ -97,62 +60,50 @@ public class ProduitDAO implements I_ProduitDAO{
 		}
 		return listProduits;
 	}
+	
 	public I_Produit findByNameProduit (String nom) {
-		try {
-			PreparedStatement pst = cn.prepareStatement("SELECT * FROM Produits WHERE nom = ?");
-			pst.setString(1, nom);
-			rs = pst.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		I_Produit p = null;
 		try {
-			p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
+			rs.beforeFirst();
+			while(rs.next()) {
+				if (nom.equals(rs.getString("nom"))) {
+					p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));					
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return p;
 	}
-	public void updateProduit (String nom, I_Produit p) {
+	
+	public boolean updateQuantite (I_Produit p) {
 		try {
-			PreparedStatement pst = cn.prepareStatement("UPDATE Produits SET nom = ? prix = ?, quantite = ? WHERE nom = ?");
-			pst.setString(1, p.getNom());
-			pst.setDouble(2, p.getPrixUnitaireHT());
-			pst.setInt(3, p.getQuantite());
-			pst.setString(4, nom);
-			pst.executeUpdate();
+			rs.beforeFirst();
+			while (rs.next()) {
+				if(rs.getString("nom").equals(p.getNom())) {
+					rs.updateInt("quantite", p.getQuantite());
+					rs.updateRow();
+					return true;
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
-	public void updateQuantite (String nom, int qte) {
+	public boolean deleteProduit (I_Produit p) {
 		try {
-			PreparedStatement pst = cn.prepareStatement("UPDATE Produits SET quantite = ? WHERE nom = ?");
-			pst.setInt(1, qte);
-			pst.setString(2, nom);
-			pst.executeUpdate();
+			rs.beforeFirst();
+			while (rs.next()) {
+				if(rs.getString("nom").equals(p.getNom())) {
+					rs.deleteRow();
+					return true;
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void deleteProduit (int id) {
-		try {
-			PreparedStatement pst = cn.prepareStatement("DELETE Produits WHERE id = ?");
-			pst.setInt(1, id);
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	public void deleteProduit (String nom) {
-		try {
-			PreparedStatement pst = cn.prepareStatement("DELETE Produits WHERE nom = ?");
-			pst.setString(1, nom);
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		return false;
 	}	
 }
