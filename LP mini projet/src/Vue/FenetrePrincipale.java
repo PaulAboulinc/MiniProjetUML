@@ -11,8 +11,7 @@ import Model.I_Catalogue;
 
 
 
-public class FenetrePrincipale extends JFrame implements ActionListener,
-		WindowListener {
+public class FenetrePrincipale extends JFrame implements ActionListener, WindowListener {
 
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
@@ -22,13 +21,16 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
-	I_Catalogue catalogue = new Catalogue();
-	ControllerProduit cProduit = new ControllerProduit(catalogue);
-	ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
-	ControllerStock cStock = new ControllerStock(catalogue);
+	private ControllerProduit controllerProduit;
+	private ControllerAchatVente controllerAchatVente;
+	private ControllerStock controllerStock;
 
 	
-	public FenetrePrincipale() {
+	public FenetrePrincipale(ControllerProduit cProduit, ControllerAchatVente cAchatVente, ControllerStock cStock) {
+		
+		controllerProduit = cProduit;
+		controllerAchatVente = cAchatVente;
+		controllerStock = cStock;
 		
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -77,27 +79,24 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 	public void actionPerformed(ActionEvent e) {
 
-/* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
-   Quand l'application fonctionnera, il faudra bien sûr récupérer les noms des produits dans le Catalogue */
-		String[] tabProduits = catalogue.getNomProduits();
-/* M�me chose pour tabCategories (partie 4) */ 		
+/* Même chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			cStock.afficherQuantite();
+			controllerStock.afficherQuantite();
 		if (e.getSource() == btNouveauProduit)
+			new FenetreNouveauProduit(controllerProduit);
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit(cProduit);
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(cProduit);
+			new FenetreSuppressionProduit(controllerProduit);
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(cAchatVente);
+			new FenetreAchat(controllerAchatVente);
 		if (e.getSource() == btVente)
-			new FenetreVente(cAchatVente);
+			new FenetreVente(controllerAchatVente);
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);
@@ -119,7 +118,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	
 	
 	public static void main(String[] args) {
-		new FenetrePrincipale();
+		I_Catalogue catalogue = new Catalogue();
+		ControllerProduit cProduit = new ControllerProduit(catalogue);
+		ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
+		ControllerStock cStock = new ControllerStock(catalogue);
+		new FenetrePrincipale(cProduit,cAchatVente,cStock);
 		
 		//Test catalogue et Produits
 		/*Catalogue c = new Catalogue();

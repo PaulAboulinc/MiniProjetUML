@@ -15,7 +15,4 @@ public class ControllerStock {
 		new FenetreAffichage(afficher);
 	}
 	
-	public I_Catalogue getCatalogue () {
-		return catalogue;
-	}
 }

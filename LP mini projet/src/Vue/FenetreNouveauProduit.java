@@ -12,11 +12,11 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
-	ControllerProduit controllerProduit;
+	private ControllerProduit controllerProduit;
 //	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit(ControllerProduit c) {	
+	public FenetreNouveauProduit(ControllerProduit cProduit) {	
 
-		controllerProduit = c;
+		controllerProduit = cProduit;
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
 		Container contentPane = getContentPane();

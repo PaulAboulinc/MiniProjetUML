@@ -1,8 +1,8 @@
 package DAO;
 
-public class ProduitFactory {
+public class ProduitDAOFactory {
 	
-	public I_ProduitDAO createProduit () {
+	public static I_ProduitDAO createProduit () {
 		return new ProduitDAO();
 		//return new AdaptateurProduitDAO_XML();
 	}

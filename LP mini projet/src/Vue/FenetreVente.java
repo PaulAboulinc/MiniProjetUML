@@ -11,11 +11,11 @@ public class FenetreVente extends JFrame implements ActionListener {
 	private JButton btVente;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
-	ControllerAchatVente cAchatVente;
+	private ControllerAchatVente controllerAchatVente;
 	
-	public FenetreVente(ControllerAchatVente c ) {
+	public FenetreVente(ControllerAchatVente cAchatVente ) {
 		
-		cAchatVente = c;
+		controllerAchatVente = cAchatVente;
 		setTitle("Vente");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();
@@ -24,7 +24,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 		txtQuantite = new JTextField(5);
 		txtQuantite.setText("0");
 
-		combo = new JComboBox<String>(cAchatVente.getCatalogue().getNomProduits());
+		combo = new JComboBox<String>(controllerAchatVente.getNomProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
@@ -37,7 +37,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		cAchatVente.vendreProduit(combo.getSelectedItem().toString(), txtQuantite.getText());
+		controllerAchatVente.vendreProduit(combo.getSelectedItem().toString(), txtQuantite.getText());
 	}
 
 }

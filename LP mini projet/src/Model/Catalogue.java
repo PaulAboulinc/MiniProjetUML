@@ -1,19 +1,17 @@
 package Model;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import DAO.I_ProduitDAO;
-import DAO.ProduitFactory;
+import DAO.ProduitDAOFactory;
 
 public class Catalogue implements I_Catalogue{
 	
-	private ProduitFactory produitFactory = new ProduitFactory();
 	private I_ProduitDAO produitDAO;
 	
 	public Catalogue () {
-		produitDAO = (I_ProduitDAO) produitFactory.createProduit();
+		produitDAO = ProduitDAOFactory.createProduit();
 	}
 	
 	@Override
@@ -25,14 +23,14 @@ public class Catalogue implements I_Catalogue{
 	}
 	
 	@Override
-	public boolean addProduit(String nom, double prix, int qte) {
-		if (Arrays.asList(getNomProduits()).contains(nom.trim()) || qte<0 || prix<=0) {
+	public boolean addProduit(String n, double prix, int qte) {
+		if (Arrays.asList(getNomProduits()).contains(n.trim()) || qte<0 || prix<=0) {
 			return false;
 		}	
-		String n = nom.trim();
-		n = n.replace("\t", " ");
-		I_Produit p = new Produit (n,  prix , qte);
-		return produitDAO.createProduit(p);
+		String nom = n.trim();
+		nom = nom.replace("\t", " ");
+		I_Produit produit = ProduitFactory.createProduit(nom,  prix , qte);
+		return produitDAO.createProduit(produit);
 	}
 
 	@Override
@@ -110,7 +108,7 @@ public class Catalogue implements I_Catalogue{
 		}
 	}
 	
-	public String getPrixEnFormatString (double prix) {
+	private String getPrixEnFormatString (double prix) {
 		BigDecimal bigDecimalPrix = new BigDecimal(prix);
 		bigDecimalPrix = bigDecimalPrix.setScale(2, BigDecimal.ROUND_HALF_UP);
 		String stringPrix = ""+bigDecimalPrix;

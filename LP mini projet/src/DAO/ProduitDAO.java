@@ -11,6 +11,7 @@ import java.util.List;
 
 import Model.I_Produit;
 import Model.Produit;
+import Model.ProduitFactory;
 
 public class ProduitDAO implements I_ProduitDAO{
 	
@@ -52,7 +53,8 @@ public class ProduitDAO implements I_ProduitDAO{
 		try {
 			rs.beforeFirst();
 			while (rs.next()) {
-				p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
+				
+				p = ProduitFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
 				listProduits.add(p);
 			}
 		} catch (SQLException e) {
@@ -67,7 +69,7 @@ public class ProduitDAO implements I_ProduitDAO{
 			rs.beforeFirst();
 			while(rs.next()) {
 				if (nom.equals(rs.getString("nom"))) {
-					p = new Produit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));					
+					p = ProduitFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));					
 				}
 			}
 		} catch (SQLException e) {

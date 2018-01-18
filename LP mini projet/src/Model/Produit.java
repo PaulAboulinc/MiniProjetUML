@@ -9,12 +9,6 @@ public class Produit implements I_Produit {
 	private double prixUnitaireHT;
 	private static double tauxTVA=0.2;
 	
-	public Produit (I_Produit p) {
-		this.quantiteStock = p.getQuantite();
-		this.nom = p.getNom();
-		this.prixUnitaireHT = p.getPrixUnitaireHT();
-	}
-	
 	public Produit (String nom, Double prixUnitaireHT, int qte) {
 		this.quantiteStock = qte;
 		this.nom = nom;
@@ -59,15 +53,15 @@ public class Produit implements I_Produit {
 		return this.quantiteStock*this.getPrixUnitaireTTC();
 	}
 	
-	public String getPrixUnitaireHTEnFormatString () {
+	private String getPrixUnitaireHTEnFormatString () {
 		return getPrixEnFormatString(this.getPrixUnitaireHT());
 	}
 	
-	public String getPrixUnitaireTTCEnFormatString () {
+	private String getPrixUnitaireTTCEnFormatString () {
 		return getPrixEnFormatString(this.getPrixUnitaireTTC());
 	}
 	
-	public String getPrixEnFormatString (double prix) {
+	private String getPrixEnFormatString (double prix) {
 		BigDecimal bigDecimalPrix = new BigDecimal(prix);
 		bigDecimalPrix = bigDecimalPrix.setScale(2, BigDecimal.ROUND_HALF_UP);
 		String stringPrix = ""+bigDecimalPrix;
