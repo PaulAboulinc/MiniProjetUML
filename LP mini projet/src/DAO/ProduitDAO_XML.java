@@ -9,7 +9,6 @@ import org.jdom.input.*;
 import org.jdom.output.*;
 
 import Model.I_Produit;
-import Model.Produit;
 import Model.ProduitFactory;
 
 
