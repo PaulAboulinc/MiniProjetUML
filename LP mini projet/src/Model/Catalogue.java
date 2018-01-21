@@ -9,9 +9,11 @@ import DAO.ProduitDAOFactory;
 public class Catalogue implements I_Catalogue{
 	
 	private I_ProduitDAO produitDAO;
+	private String nomCatalogue;
 	
-	public Catalogue () {
-		produitDAO = ProduitDAOFactory.createProduit();
+	public Catalogue (String nom) {
+		nomCatalogue = nom;
+		produitDAO = ProduitDAOFactory.createProduit(nomCatalogue);
 	}
 	
 	@Override
@@ -48,11 +50,9 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean removeProduit(String nom) {
-		List<I_Produit> listProduits = produitDAO.findAllProduit();
-		for (I_Produit i_Produit : listProduits) {
-			if (i_Produit.getNom().equals(nom)) {
-				return produitDAO.deleteProduit(i_Produit);
-			}
+		if (Arrays.asList(getNomProduits()).contains(nom)) {
+			I_Produit i_Produit = produitDAO.findByNameProduit(nom);
+			return produitDAO.deleteProduit(i_Produit);
 		}
 		return false;
 	}
@@ -98,6 +98,10 @@ public class Catalogue implements I_Catalogue{
 			result += i_Produit.getPrixStockTTC();
 		}
 		return Math.round(result * 100.0) / 100.0;
+	}
+	
+	public String getNom() {
+		return this.nomCatalogue;
 	}
 
 	@Override

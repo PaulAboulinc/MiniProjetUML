@@ -1,44 +1,62 @@
 package DAO;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.I_Produit;
-import Model.Produit;
 import Model.ProduitFactory;
 
 public class ProduitDAO implements I_ProduitDAO{
 	
 	private Connection cn = null;
-	private Statement st = null;
+	private PreparedStatement pst = null;
 	private ResultSet rs = null;
+	private int idCatalogue;
 	
-	public ProduitDAO () {
+	public ProduitDAO (String nom) {
 		ConnexionBD connexionBD = ConnexionBD.getInstance();
 		cn = connexionBD.getConnection();
+		idCatalogue = getIdCatalogue(nom);
+		
+		String tempSQL = "SELECT nom,prix,quantite,idCatalogue FROM Produits WHERE idCatalogue = "+ idCatalogue +" ORDER BY id";
 		
 		try {
-			st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			rs = st.executeQuery("SELECT nom,prix,quantite FROM Produits ORDER BY id");
+			//pst = (PreparedStatement) cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			//pst = cn.prepareStatement("SELECT nom,prix,quantite,idCatalogue FROM Produits WHERE idCatalogue = ? ORDER BY id");
+			//pst.setInt(1,idCatalogue);
+			pst = cn.prepareStatement(tempSQL,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			rs = pst.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private int getIdCatalogue(String nomCatalogue) {
+		try {
+			PreparedStatement ps = cn.prepareStatement("SELECT id FROM Catalogues WHERE nom = ? ");
+			ps.setString(1,nomCatalogue);
+			ResultSet res = ps.executeQuery();
+			res.next();
+			return res.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	public boolean createProduit (I_Produit p) {
 		try {
 			rs.moveToInsertRow();
 			rs.updateString("nom",p.getNom());
 			rs.updateDouble("prix", p.getPrixUnitaireHT());
 			rs.updateInt("quantite", p.getQuantite());
+			rs.updateInt("idCatalogue", idCatalogue);
 			rs.insertRow();
-			rs = st.executeQuery("SELECT nom,prix,quantite FROM Produits ORDER BY id");
+			rs = pst.executeQuery();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

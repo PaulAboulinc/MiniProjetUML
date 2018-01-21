@@ -118,7 +118,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 	
 	
 	public static void main(String[] args) {
-		I_Catalogue catalogue = new Catalogue();
+		I_Catalogue catalogue = new Catalogue("");
 		ControllerProduit cProduit = new ControllerProduit(catalogue);
 		ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
 		ControllerStock cStock = new ControllerStock(catalogue);
