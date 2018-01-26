@@ -9,4 +9,8 @@ public class CatalogueFactory {
 	public static I_Catalogue createCatalogue (String nom) {
 		return new Catalogue(nom);
 	}
+	
+	public static I_CatalogueManager createCatalogueManager () {
+		return new CatalogueManager();
+	}
 }

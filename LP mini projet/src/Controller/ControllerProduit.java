@@ -7,7 +7,7 @@ import Vue.FenetreAffichage;
 
 public class ControllerProduit  {
 	
-	I_Catalogue catalogue;
+	private I_Catalogue catalogue;
 	
 	public ControllerProduit (I_Catalogue c) {
 		catalogue = c;

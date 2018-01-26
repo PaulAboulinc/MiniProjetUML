@@ -8,7 +8,7 @@ import DAO.I_CatalogueDAO;
 import DAO.I_CatalogueDAOFactory;
 
 
-public class CatalogueManager {
+public class CatalogueManager implements I_CatalogueManager {
 	
 	private I_CatalogueDAO catalogueDAO;
 	
@@ -32,7 +32,7 @@ public class CatalogueManager {
 		return false;
 	}
 	
-	public static I_Catalogue selectionnerCatalogue (String nomCatalogue) {
+	public I_Catalogue selectionnerCatalogue (String nomCatalogue) {
 		return CatalogueFactory.createCatalogue(nomCatalogue);
 	}
 		

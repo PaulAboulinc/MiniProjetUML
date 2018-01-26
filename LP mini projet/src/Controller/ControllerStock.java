@@ -4,7 +4,7 @@ import Vue.FenetreAffichage;
 
 public class ControllerStock {
 
-	I_Catalogue catalogue;
+	private I_Catalogue catalogue;
 	
 	public ControllerStock(I_Catalogue c) {
 		catalogue = c;
