@@ -7,6 +7,10 @@ import Controller.ControllerProduit;
 
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1248733257205001891L;
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
 	private ControllerProduit controllerProduit;

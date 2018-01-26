@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import DAO.I_CatalogueDAOFactory;
 import Model.Catalogue;
 import Model.I_Catalogue;
 import Model.I_Produit;

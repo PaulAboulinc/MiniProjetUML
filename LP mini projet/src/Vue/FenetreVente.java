@@ -8,6 +8,10 @@ import Controller.ControllerAchatVente;
 
 public class FenetreVente extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8942973153834151780L;
 	private JButton btVente;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;

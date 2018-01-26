@@ -4,19 +4,18 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import Controller.ControllerAchatVente;
 import Controller.ControllerCatalogue;
-import Controller.ControllerProduit;
-import Controller.ControllerStock;
-import Model.Catalogue;
-import Model.I_Catalogue;
 
 public class FenetreAccueil extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3251721270754197830L;
 	private JButton btAjouter, btSupprimer, btSelectionner;
 	private JTextField txtAjouter;
 	private JLabel lbNbCatalogues;
-	private JComboBox cmbSupprimer, cmbSelectionner;
+	private JComboBox<String> cmbSupprimer, cmbSelectionner;
 	private TextArea taDetailCatalogues;
 	private ControllerCatalogue controllerCatalogue;
 
@@ -55,14 +54,14 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 		panAjouter.add(btAjouter);
 
 		panSupprimer.add(new JLabel("Supprimer un catalogue : "));
-		cmbSupprimer = new JComboBox();
+		cmbSupprimer = new JComboBox<String>();
 		cmbSupprimer.setPreferredSize(new Dimension(100, 20));
 		panSupprimer.add(cmbSupprimer);
 		btSupprimer = new JButton("Supprimer");
 		panSupprimer.add(btSupprimer);
 
 		panSelectionner.add(new JLabel("Selectionner un catalogue : "));
-		cmbSelectionner = new JComboBox();
+		cmbSelectionner = new JComboBox<String>();
 		cmbSelectionner.setPreferredSize(new Dimension(100, 20));
 		panSelectionner.add(cmbSelectionner);
 		btSelectionner = new JButton("Selectionner");
@@ -103,7 +102,6 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			String texteAjout = txtAjouter.getText();
 			if (!texteAjout.equals(""))
 			{
-				System.out.println("ajouter le catalogue "+texteAjout);
 				if (controllerCatalogue.ajouterCatalogue(texteAjout)) {
 					txtAjouter.setText(null);
 					modifierListesDetailsEtnBCatalogues();					
@@ -115,7 +113,6 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			String texteSupprime = (String)cmbSupprimer.getSelectedItem();
 			if (texteSupprime != null) {				
 				if (controllerCatalogue.supprimerCatalogue(texteSupprime)) {					
-					System.out.println("supprime catalogue "+texteSupprime);
 					modifierListesDetailsEtnBCatalogues();
 				}
 			}
@@ -125,7 +122,6 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			String texteSelection = (String)cmbSelectionner.getSelectedItem();
 			if (texteSelection != null) 
 			{
-				System.out.println("selectionne catalogue "+texteSelection);
 				if (controllerCatalogue.selectionnerCatalogue(texteSelection)) {
 					this.dispose();
 				}
@@ -154,7 +150,6 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 		if (detailCatalogues != null) {
 			taDetailCatalogues.setText("");
 			for (String str : detailCatalogues) {
-				System.out.println(str);
 				taDetailCatalogues.append(str+"\n");
 			}
 		}

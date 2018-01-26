@@ -13,6 +13,10 @@ import Model.I_Catalogue;
 
 public class FenetrePrincipale extends JFrame implements ActionListener, WindowListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2447488180482996988L;
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;

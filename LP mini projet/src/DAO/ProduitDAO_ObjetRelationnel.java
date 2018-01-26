@@ -10,53 +10,38 @@ import java.util.List;
 import Model.I_Produit;
 import Model.CatalogueFactory;
 
-public class ProduitDAO implements I_ProduitDAO{
+public class ProduitDAO_ObjetRelationnel implements I_ProduitDAO{
 	
 	private Connection cn = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
-	private int idCatalogue;
+	private String nomCatalogue;
 	
-	public ProduitDAO (String nom) {
+	public ProduitDAO_ObjetRelationnel (String nom) {
 		ConnexionBD connexionBD = ConnexionBD.getInstance();
 		cn = connexionBD.getConnection();
-		idCatalogue = getIdCatalogue(nom);
 		
-		String tempSQL = "SELECT nom,prix,quantite,idCatalogue FROM Produits WHERE idCatalogue = ? ORDER BY id";
+		nomCatalogue = nom;
+		String tempSQL = "SELECT nom,prix,quantite,P.ref_catalogue.nom FROM Produits P WHERE P.ref_catalogue.nom = ? ORDER BY id";
 		
 		try {
-			//pst = (PreparedStatement) cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			//pst = cn.prepareStatement("SELECT nom,prix,quantite,idCatalogue FROM Produits WHERE idCatalogue = ? ORDER BY id");
-			//pst.setInt(1,idCatalogue);
 			pst = cn.prepareStatement(tempSQL,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			pst.setInt(1, idCatalogue);
+			pst.setString(1, nomCatalogue);
 			rs = pst.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private int getIdCatalogue(String nomCatalogue) {
-		try {
-			PreparedStatement ps = cn.prepareStatement("SELECT id FROM Catalogues WHERE nom = ? ");
-			ps.setString(1,nomCatalogue);
-			ResultSet res = ps.executeQuery();
-			res.next();
-			return res.getInt("id");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
 
 	public boolean createProduit (I_Produit p) {
 		try {
-			rs.moveToInsertRow();
-			rs.updateString("nom",p.getNom());
-			rs.updateDouble("prix", p.getPrixUnitaireHT());
-			rs.updateInt("quantite", p.getQuantite());
-			rs.updateInt("idCatalogue", idCatalogue);
-			rs.insertRow();
+			PreparedStatement ps = cn.prepareStatement("INSERT INTO Produits VALUES (null,?,?,?,"
+										+ "(SELECT REF(c) FROM Catalogues c WHERE c.nom = ?))");
+			ps.setString(1, p.getNom());
+			ps.setDouble(2, p.getPrixUnitaireHT());
+			ps.setInt(3, p.getQuantite());
+			ps.setString(4, nomCatalogue);
+			ps.executeQuery();
 			rs = pst.executeQuery();
 			return true;
 		} catch (SQLException e) {

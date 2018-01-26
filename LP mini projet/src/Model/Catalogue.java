@@ -3,8 +3,9 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import DAO.I_CatalogueDAOFactory;
 import DAO.I_ProduitDAO;
-import DAO.ProduitDAOFactory;
 
 public class Catalogue implements I_Catalogue{
 	
@@ -13,7 +14,7 @@ public class Catalogue implements I_Catalogue{
 	
 	public Catalogue (String nom) {
 		nomCatalogue = nom;
-		produitDAO = ProduitDAOFactory.createProduit(nomCatalogue);
+		produitDAO = I_CatalogueDAOFactory.getInstance().createProduitDAO(nomCatalogue);
 	}
 	
 	@Override
@@ -31,7 +32,7 @@ public class Catalogue implements I_Catalogue{
 		}	
 		String nom = n.trim();
 		nom = nom.replace("\t", " ");
-		I_Produit produit = ProduitFactory.createProduit(nom,  prix , qte);
+		I_Produit produit = CatalogueFactory.createProduit(nom,  prix , qte);
 		return produitDAO.createProduit(produit);
 	}
 

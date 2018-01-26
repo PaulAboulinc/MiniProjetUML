@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Catalogue;
 import Model.I_Catalogue;
 import Model.CatalogueManager;
 import Vue.FenetrePrincipale;
@@ -23,7 +22,7 @@ public class ControllerCatalogue {
 	
 	public boolean selectionnerCatalogue (String nomCatalogue) {
 		if (catalogueManager.isCatalogueExist(nomCatalogue)) {			
-			I_Catalogue catalogue = new Catalogue(nomCatalogue); //a changer par catalogueManage.getCatalogue(nomCatalogue)
+			I_Catalogue catalogue = CatalogueManager.selectionnerCatalogue(nomCatalogue);
 			ControllerProduit cProduit = new ControllerProduit(catalogue);
 			ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
 			ControllerStock cStock = new ControllerStock(catalogue);

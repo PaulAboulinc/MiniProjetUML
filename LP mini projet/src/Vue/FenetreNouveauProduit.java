@@ -7,6 +7,10 @@ import Controller.ControllerProduit;
 
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5686636190803271047L;
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
 	private JTextField txtQte;

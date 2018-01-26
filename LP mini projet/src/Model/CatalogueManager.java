@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import DAO.CatalogueDAO;
 import DAO.I_CatalogueDAO;
+import DAO.I_CatalogueDAOFactory;
 
 
 public class CatalogueManager {
@@ -13,7 +13,7 @@ public class CatalogueManager {
 	private I_CatalogueDAO catalogueDAO;
 	
 	public CatalogueManager () {
-		catalogueDAO = new CatalogueDAO();
+		catalogueDAO = I_CatalogueDAOFactory.getInstance().createCatalogueDAO();
 	}
 
 	public boolean ajouterCatalogue (String nomCatalogue) {
@@ -32,8 +32,8 @@ public class CatalogueManager {
 		return false;
 	}
 	
-	public I_Catalogue selectionnerCatalogue (String nomCatalogue) {
-		return new Catalogue(nomCatalogue);
+	public static I_Catalogue selectionnerCatalogue (String nomCatalogue) {
+		return CatalogueFactory.createCatalogue(nomCatalogue);
 	}
 		
 	public int getNombreCatalogues() {
