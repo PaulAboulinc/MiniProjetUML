@@ -9,5 +9,6 @@ public interface I_CatalogueManager {
 	public abstract String[] getNomCatalogues();
 	public abstract boolean isCatalogueExist(String nomCatalogue);
 	public abstract String[] getNomCataloguesEtNombreProduits ();	
+	public abstract void clear();
 	
 }

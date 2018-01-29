@@ -49,6 +49,8 @@ public class CatalogueManager implements I_CatalogueManager {
 		Collections.sort(Arrays.asList(noms));
 		return noms;		
 	}
+	
+	
 	public boolean isCatalogueExist(String nomCatalogue) {		
 		return catalogueDAO.findCatalogueByName(nomCatalogue);
 	}
@@ -62,4 +64,15 @@ public class CatalogueManager implements I_CatalogueManager {
 		Collections.sort(Arrays.asList(listCatalogueEtNombreProduits));
 		return listCatalogueEtNombreProduits;	
 	}
+
+	@Override
+	public void clear() {
+		List<String> listNomsCatalogues = catalogueDAO.findAllCatalogue();
+		for (String i_catalogue : listNomsCatalogues) {
+			catalogueDAO.deleteCatalogue(i_catalogue);
+		}
+	}
+	
+	
+	
 }
