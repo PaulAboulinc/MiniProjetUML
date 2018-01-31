@@ -10,7 +10,6 @@ import org.jdom.output.*;
 
 import Model.I_Produit;
 import Model.CatalogueFactory;
-import Model.ProduitFactory;
 
 
 public class ProduitDAO_XML {
