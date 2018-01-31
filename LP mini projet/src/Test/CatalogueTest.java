@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Model.Catalogue;
+import Model.CatalogueFactory;
 import Model.I_Catalogue;
+import Model.I_CatalogueManager;
 import Model.I_Produit;
 import Model.Produit;
 
@@ -16,6 +18,11 @@ import Model.Produit;
 public class CatalogueTest {
 
 	I_Catalogue cat;
+	
+	public CatalogueTest() {
+		I_CatalogueManager catManager = CatalogueFactory.createCatalogueManager();
+		catManager.ajouterCatalogue("test");
+	}
 	
 	@Before
 	public void setUp() {

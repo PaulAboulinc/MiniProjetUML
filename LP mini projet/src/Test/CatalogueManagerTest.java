@@ -5,8 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Arrays;
-import Model.Catalogue;
-import Model.CatalogueManager;
+import Model.CatalogueFactory;
 import Model.I_Catalogue;
 import Model.I_CatalogueManager;
 
@@ -16,7 +15,7 @@ public class CatalogueManagerTest {
 	
 	@Before
 	public void setUp() {
-		cat = new CatalogueManager();
+		cat = CatalogueFactory.createCatalogueManager();
 		cat.clear();
 	}
 	
@@ -28,21 +27,21 @@ public class CatalogueManagerTest {
 	
 	@Test
 	public void testAjouterUnCatalogue(){
-		Catalogue catalogue = new Catalogue("test");
+		I_Catalogue catalogue = CatalogueFactory.createCatalogue("test");
 		assertEquals(cat.ajouterCatalogue(catalogue.getNom()),true);
 	}
 	
 	@Test
 	public void testAjouterDeuxCataloguesAvecLeMemeNom(){
-		Catalogue catalogue1 = new Catalogue("test");
-		Catalogue catalogue2 = new Catalogue("test");
+		I_Catalogue catalogue1 = CatalogueFactory.createCatalogue("test");
+		I_Catalogue catalogue2 = CatalogueFactory.createCatalogue("test");
 		cat.ajouterCatalogue(catalogue1.getNom());
 		assertEquals(cat.ajouterCatalogue(catalogue2.getNom()),false);
 	}
 	
 	@Test
 	public void testSupprimerUnCatalogue(){
-		Catalogue catalogue = new Catalogue("test");
+		I_Catalogue catalogue = CatalogueFactory.createCatalogue("test");
 		cat.ajouterCatalogue(catalogue.getNom());
 		assertEquals(cat.supprimerCatalogue(catalogue.getNom()),true);
 	}
@@ -54,7 +53,7 @@ public class CatalogueManagerTest {
 	
 	@Test
 	public void testSupprimerUnCatalogueDeuxFois(){
-		Catalogue catalogue1 = new Catalogue("test");
+		I_Catalogue catalogue1 = CatalogueFactory.createCatalogue("test");
 		cat.ajouterCatalogue(catalogue1.getNom());
 		cat.supprimerCatalogue(catalogue1.getNom());
 		assertEquals(cat.supprimerCatalogue(catalogue1.getNom()),false);
@@ -67,8 +66,8 @@ public class CatalogueManagerTest {
 	
 	@Test
 	public void testRetourPlusieursCatalogue(){
-		Catalogue catalogue1 = new Catalogue("test1");
-		Catalogue catalogue2 = new Catalogue("test2");
+		I_Catalogue catalogue1 = CatalogueFactory.createCatalogue("test1");
+		I_Catalogue catalogue2 = CatalogueFactory.createCatalogue("test2");
 		cat.ajouterCatalogue(catalogue1.getNom());
 		cat.ajouterCatalogue(catalogue2.getNom());
 		assertEquals(cat.getNombreCatalogues(),2);
@@ -76,7 +75,7 @@ public class CatalogueManagerTest {
 	
 	@Test
 	public void testRetourUnNomCatalogue(){
-		Catalogue catalogue = new Catalogue("test");
+		I_Catalogue catalogue = CatalogueFactory.createCatalogue("test");
 		cat.ajouterCatalogue(catalogue.getNom());
 		assertEquals(Arrays.asList(cat.getNomCatalogues()),Arrays.asList(catalogue.getNom()));
 	}
@@ -88,8 +87,8 @@ public class CatalogueManagerTest {
 	
 	@Test
 	public void testRetourDeuxNomsCatalogues(){
-		Catalogue catalogue1 = new Catalogue("test1");
-		Catalogue catalogue2 = new Catalogue("test2");
+		I_Catalogue catalogue1 = CatalogueFactory.createCatalogue("test1");
+		I_Catalogue catalogue2 = CatalogueFactory.createCatalogue("test2");
 		cat.ajouterCatalogue(catalogue1.getNom());
 		cat.ajouterCatalogue(catalogue2.getNom());
 		assertEquals(Arrays.asList(cat.getNomCatalogues()),Arrays.asList(catalogue1.getNom(),catalogue2.getNom()));
@@ -97,7 +96,7 @@ public class CatalogueManagerTest {
 	
 	@Test
 	public void testCatalogueExiste(){
-		Catalogue catalogue = new Catalogue("test");
+		I_Catalogue catalogue = CatalogueFactory.createCatalogue("test");
 		cat.ajouterCatalogue(catalogue.getNom());
 		assertEquals(cat.isCatalogueExist(catalogue.getNom()),true);
 	}
