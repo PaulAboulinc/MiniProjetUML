@@ -5,6 +5,10 @@ import javax.swing.*;
 
 public class FenetreAffichage extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1867316201573144127L;
 	private JButton btOK;
 	
 	public FenetreAffichage(String texte) {

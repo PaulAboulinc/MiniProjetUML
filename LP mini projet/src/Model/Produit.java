@@ -46,7 +46,7 @@ public class Produit implements I_Produit {
 	}
 	@Override
 	public double getPrixUnitaireTTC() {
-		return this.prixUnitaireHT*(this.tauxTVA+1);
+		return this.prixUnitaireHT*(Produit.tauxTVA+1);
 	}
 	@Override
 	public double getPrixStockTTC() {

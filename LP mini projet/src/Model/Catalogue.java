@@ -29,7 +29,7 @@ public class Catalogue implements I_Catalogue{
 		}	
 		String nom = n.trim();
 		nom = nom.replace("\t", " ");
-		I_Produit produit = ProduitFactory.createProduit(nom,  prix , qte);
+		I_Produit produit = CatalogueFactory.createProduit(nom,  prix , qte);
 		return produitDAO.createProduit(produit);
 	}
 

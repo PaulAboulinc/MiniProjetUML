@@ -9,8 +9,7 @@ import org.jdom.input.*;
 import org.jdom.output.*;
 
 import Model.I_Produit;
-import Model.Produit;
-import Model.ProduitFactory;
+import Model.CatalogueFactory;
 
 
 public class ProduitDAO_XML {
@@ -75,7 +74,7 @@ public class ProduitDAO_XML {
 	public I_Produit lire(String nom) {
 		Element e = chercheProduit(nom);
 		if (e != null)
-			return ProduitFactory.createProduit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")));
+			return CatalogueFactory.createProduit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")));
 		else
 			return null;
 	}
@@ -91,7 +90,7 @@ public class ProduitDAO_XML {
 				String nomP = prod.getAttributeValue("nom");
 				Double prix = Double.parseDouble(prod.getChild("prixHT").getText());
 				int qte = Integer.parseInt(prod.getChild("quantite").getText());
-				l.add(ProduitFactory.createProduit(nomP, prix, qte));
+				l.add(CatalogueFactory.createProduit(nomP, prix, qte));
 			}
 		} catch (Exception e) {
 			System.out.println("erreur lireTous tous les produits");

@@ -1,8 +1,6 @@
 package DAO;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.I_Produit;
-import Model.Produit;
-import Model.ProduitFactory;
+import Model.CatalogueFactory;
 
 public class ProduitDAO implements I_ProduitDAO{
 	
@@ -54,7 +51,7 @@ public class ProduitDAO implements I_ProduitDAO{
 			rs.beforeFirst();
 			while (rs.next()) {
 				
-				p = ProduitFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
+				p = CatalogueFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
 				listProduits.add(p);
 			}
 		} catch (SQLException e) {
@@ -69,7 +66,7 @@ public class ProduitDAO implements I_ProduitDAO{
 			rs.beforeFirst();
 			while(rs.next()) {
 				if (nom.equals(rs.getString("nom"))) {
-					p = ProduitFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));					
+					p = CatalogueFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));					
 				}
 			}
 		} catch (SQLException e) {
