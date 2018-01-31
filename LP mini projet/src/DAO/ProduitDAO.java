@@ -9,6 +9,7 @@ import java.util.List;
 
 import Model.I_Produit;
 import Model.CatalogueFactory;
+import Model.ProduitFactory;
 
 public class ProduitDAO implements I_ProduitDAO{
 	
