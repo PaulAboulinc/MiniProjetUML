@@ -16,8 +16,8 @@ public class ControllerAchatVente {
 		}
 		int qte = 0;
 		qte = Integer.parseInt(q);
-		
-		if (catalogue.acheterStock(nom, qte)) {
+		boolean ajoutIsOk = catalogue.acheterStock(nom, qte);
+		if (ajoutIsOk) {
 			new FenetreAffichage("Le stock a été mis à jour !");
 			return true;
 		}else {

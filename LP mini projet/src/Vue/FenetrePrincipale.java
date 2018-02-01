@@ -119,33 +119,4 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
 
-	
-	
-	public static void main(String[] args) {
-		I_Catalogue catalogue = new Catalogue("");
-		ControllerProduit cProduit = new ControllerProduit(catalogue);
-		ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
-		ControllerStock cStock = new ControllerStock(catalogue);
-		new FenetrePrincipale(cProduit,cAchatVente,cStock);
-		
-		//Test catalogue et Produits
-		/*Catalogue c = new Catalogue();
-		List<I_Produit> listProduits = new ArrayList<I_Produit>();
-		I_Produit p1 = new Produit("testl1", 1.0, 1);
-		I_Produit p2 = new Produit("testl2", 2.0, 2);
-		listProduits.add(p1);
-		listProduits.add(p2);
-		System.out.println(c.addProduit("test1", 10, 5));
-		System.out.println("Add : "+c.addProduit("test2", 15, 50));
-		System.out.println("Acheter : "+c.acheterStock("test2", 1));
-		System.out.println("Vendre : "+c.vendreStock("test2", 52));
-		System.out.println("RemoveProduit test1 : "+c.removeProduit("test1"));
-		System.out.println("AddListProduit : "+c.addProduits(listProduits));
-		System.out.println("RemoveProduit testl1 : "+c.removeProduit("testl1"));
-		System.out.println("RemoveProduit test21 : "+c.removeProduit("testl2"));
-		System.out.println(" : "+c.addProduit(p1));
-		//c.clear();
-		System.out.println(c.toString());*/
-	}
-
 }
