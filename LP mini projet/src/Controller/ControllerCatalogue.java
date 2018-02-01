@@ -3,6 +3,7 @@ package Controller;
 import Model.I_Catalogue;
 import Model.I_CatalogueManager;
 import Model.CatalogueFactory;
+import Vue.FenetreAffichage;
 import Vue.FenetrePrincipale;
 
 public class ControllerCatalogue {
@@ -14,6 +15,10 @@ public class ControllerCatalogue {
 	}
 	
 	public boolean ajouterCatalogue (String nomCatalogue) {
+		if (nomCatalogue.trim().isEmpty()) {
+			new FenetreAffichage("Le nom du catalogue ne peut pas être vide !");
+			return false;
+		}
 		return catalogueManager.ajouterCatalogue(nomCatalogue);
 	}
 	
