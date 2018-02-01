@@ -4,10 +4,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Controller.ControllerAchatVente;
+import Controller.ControllerCategorie;
 import Controller.ControllerProduit;
 import Controller.ControllerStock;
-import Model.Catalogue;
-import Model.I_Catalogue;
+
 
 
 
@@ -20,18 +20,19 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;
-//	private JButton btNouvelleCategorie;
-//	private JButton btSupprimerCategorie;
+	private JButton btNouvelleCategorie;
+	private JButton btSupprimerCategorie;
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
 	private ControllerProduit controllerProduit;
 	private ControllerAchatVente controllerAchatVente;
 	private ControllerStock controllerStock;
-
+	private ControllerCategorie controllerCategorie;
 	
-	public FenetrePrincipale(ControllerProduit cProduit, ControllerAchatVente cAchatVente, ControllerStock cStock) {
+	public FenetrePrincipale(ControllerCategorie cCategorie, ControllerProduit cProduit, ControllerAchatVente cAchatVente, ControllerStock cStock) {
 		
+		controllerCategorie = cCategorie;
 		controllerProduit = cProduit;
 		controllerAchatVente = cAchatVente;
 		controllerStock = cStock;
@@ -40,7 +41,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 		setBounds(500, 500, 320, 250);
 		JPanel panAffichage = new JPanel();
 		JPanel panNouveauSupprimerProduit = new JPanel();
-//		JPanel panNouveauSupprimerCategorie = new JPanel();
+		JPanel panNouveauSupprimerCategorie = new JPanel();
 		JPanel panAchatVente = new JPanel();
 		JPanel panQuitter = new JPanel();
 		Container contentPane = getContentPane();
@@ -48,22 +49,22 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 		btAfficher = new JButton("Quantités en stock");
 		btNouveauProduit = new JButton("Nouveau Produit");
 		btSupprimerProduit = new JButton("Supprimer Produit");
-//		btNouvelleCategorie = new JButton("Nouvelle Categorie");
-//		btSupprimerCategorie = new JButton("Supprimer Categorie");
+		btNouvelleCategorie = new JButton("Nouvelle Categorie");
+		btSupprimerCategorie = new JButton("Supprimer Categorie");
 		btAchat = new JButton("Achat Produits");
 		btVente = new JButton("Vente Produits");
 		btQuitter = new JButton("Quitter");
 		panAffichage.add(btAfficher);
 		panNouveauSupprimerProduit.add(btNouveauProduit); 
 		panNouveauSupprimerProduit.add(btSupprimerProduit);
-//		panNouveauSupprimerCategorie.add(btNouvelleCategorie); 
-//		panNouveauSupprimerCategorie.add(btSupprimerCategorie);
+		panNouveauSupprimerCategorie.add(btNouvelleCategorie); 
+		panNouveauSupprimerCategorie.add(btSupprimerCategorie);
 		panAchatVente.add(btAchat); 
 		panAchatVente.add(btVente);  
 		panQuitter.add(btQuitter);
 
 		contentPane.add(panAffichage);
-//		contentPane.add(panNouveauSupprimerCategorie);
+		contentPane.add(panNouveauSupprimerCategorie);
 		contentPane.add(panNouveauSupprimerProduit);
 		contentPane.add(panAchatVente);
 		contentPane.add(panQuitter);
@@ -71,8 +72,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 		btAfficher.addActionListener(this);
 		btNouveauProduit.addActionListener(this);
 		btSupprimerProduit.addActionListener(this);
-//		btNouvelleCategorie.addActionListener(this);
-//		btSupprimerCategorie.addActionListener(this);
+		btNouvelleCategorie.addActionListener(this);
+		btSupprimerCategorie.addActionListener(this);
 		btAchat.addActionListener(this);
 		btVente.addActionListener(this);
 		btQuitter.addActionListener(this);
@@ -83,20 +84,18 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 
 	public void actionPerformed(ActionEvent e) {
 
-/* Même chose pour tabCategories (partie 4) */ 		
-//		String[] tabCategories = new String[] {"Bio", "Luxe" };
+		String[] tabCategories = controllerCategorie.getNomCategories();
 		
 		if (e.getSource() == btAfficher)
 			controllerStock.afficherQuantite();
-		if (e.getSource() == btNouveauProduit)
-			new FenetreNouveauProduit(controllerProduit);
-//			new FenetreNouveauProduit(tabCategories);
+		if (e.getSource() == btNouveauProduit) 
+			new FenetreNouveauProduit(controllerCategorie,controllerProduit,tabCategories);
 		if (e.getSource() == btSupprimerProduit)
 			new FenetreSuppressionProduit(controllerProduit);
-//		if (e.getSource() == btNouvelleCategorie)
-//			new FenetreNouvelleCategorie();
-//		if (e.getSource() == btSupprimerCategorie)
-//			new FenetreSuppressionCategorie(tabCategories);
+		if (e.getSource() == btNouvelleCategorie) 
+			new FenetreNouvelleCategorie(controllerCategorie);
+		if (e.getSource() == btSupprimerCategorie)
+			new FenetreSuppressionCategorie(tabCategories, controllerCategorie);
 		if (e.getSource() == btAchat)
 			new FenetreAchat(controllerAchatVente);
 		if (e.getSource() == btVente)
@@ -118,34 +117,5 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
-
-	
-	
-	public static void main(String[] args) {
-		I_Catalogue catalogue = new Catalogue("");
-		ControllerProduit cProduit = new ControllerProduit(catalogue);
-		ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
-		ControllerStock cStock = new ControllerStock(catalogue);
-		new FenetrePrincipale(cProduit,cAchatVente,cStock);
-		
-		//Test catalogue et Produits
-		/*Catalogue c = new Catalogue();
-		List<I_Produit> listProduits = new ArrayList<I_Produit>();
-		I_Produit p1 = new Produit("testl1", 1.0, 1);
-		I_Produit p2 = new Produit("testl2", 2.0, 2);
-		listProduits.add(p1);
-		listProduits.add(p2);
-		System.out.println(c.addProduit("test1", 10, 5));
-		System.out.println("Add : "+c.addProduit("test2", 15, 50));
-		System.out.println("Acheter : "+c.acheterStock("test2", 1));
-		System.out.println("Vendre : "+c.vendreStock("test2", 52));
-		System.out.println("RemoveProduit test1 : "+c.removeProduit("test1"));
-		System.out.println("AddListProduit : "+c.addProduits(listProduits));
-		System.out.println("RemoveProduit testl1 : "+c.removeProduit("testl1"));
-		System.out.println("RemoveProduit test21 : "+c.removeProduit("testl2"));
-		System.out.println(" : "+c.addProduit(p1));
-		//c.clear();
-		System.out.println(c.toString());*/
-	}
 
 }

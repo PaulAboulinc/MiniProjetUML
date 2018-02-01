@@ -8,13 +8,13 @@ public abstract class I_CatalogueDAOFactory {
 	
 	public synchronized static I_CatalogueDAOFactory getInstance() {
 		if (instance == null) {
-			instance = new CatalogueDAOFactory_ObjetRelationnel();
-			//instance  = new CatalogueDAOFactory();
+			instance  = new CatalogueDAOFactory();
 		}
 		return instance;
 	}
 
 	public abstract I_ProduitDAO createProduitDAO (String nomCatalogue);
 	public abstract I_CatalogueDAO createCatalogueDAO ();
+	public abstract I_CategorieDAO createCategorieDAO ();
 
 }

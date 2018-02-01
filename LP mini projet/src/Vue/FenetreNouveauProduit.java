@@ -3,23 +3,27 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import Controller.ControllerCategorie;
 import Controller.ControllerProduit;
 
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5686636190803271047L;
+	private static final long serialVersionUID = -671856020161479669L;
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
 	private JTextField txtQte;
-//	private JComboBox<String> combo;
+	private JComboBox<String> combo;
 	private JButton btValider;
 	private ControllerProduit controllerProduit;
-//	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit(ControllerProduit cProduit) {	
+	private ControllerCategorie controllerCategorie;
+	
+	public FenetreNouveauProduit(ControllerCategorie cCategorie, ControllerProduit cProduit, String[] lesCategories) {
 
+		controllerCategorie = cCategorie;
 		controllerProduit = cProduit;
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
@@ -29,7 +33,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		JLabel labNom = new JLabel("Nom produit");
 		JLabel labPrixHT = new JLabel("Prix Hors Taxe");
 		JLabel labQte = new JLabel("Quantité en stock");
-//		JLabel labCategorie = new JLabel("Categorie");
+		JLabel labCategorie = new JLabel("Categorie");
 		contentPane.add(labNom);
 		txtNom = new JTextField(15);
 		contentPane.add(txtNom);
@@ -40,10 +44,10 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		txtQte = new JTextField(15);
 		contentPane.add(txtQte);
 
-//		combo = new JComboBox<String>(lesCategories);
-//		combo.setPreferredSize(new Dimension(100, 20));
-//		contentPane.add(labCategorie);
-//		contentPane.add(combo);
+		combo = new JComboBox<String>(lesCategories);
+		combo.setPreferredSize(new Dimension(100, 20));
+		contentPane.add(labCategorie);
+		contentPane.add(combo);
 
 		
 		btValider = new JButton("Valider");
@@ -54,7 +58,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		controllerProduit.creationProduit(txtNom.getText(), txtPrixHT.getText(), txtQte.getText());
+		controllerProduit.creationProduit(txtNom.getText(), txtPrixHT.getText(), txtQte.getText(), combo.getSelectedItem().toString());
 	}
 
 }

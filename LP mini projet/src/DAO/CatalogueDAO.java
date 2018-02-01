@@ -14,7 +14,7 @@ public class CatalogueDAO implements I_CatalogueDAO {
 	private Statement st;
 	private ResultSet rs;
 	
-	public CatalogueDAO () {
+	public CatalogueDAO() {
 		ConnexionBD connexionBD = ConnexionBD.getInstance();
 		cn = connexionBD.getConnection();
 
@@ -72,18 +72,22 @@ public class CatalogueDAO implements I_CatalogueDAO {
 
 	@Override
 	public int getNombreProduitsParCatalogue(String nom) {
-		int i = 0;
+		ResultSet res = null;
+		int result = 0;
 		try {
-			PreparedStatement pst = cn.prepareStatement("SELECT * FROM Produits P JOIN Catalogues C ON C.id=P.idCatalogue WHERE C.nom = ?");
+			PreparedStatement pst = cn.prepareStatement("SELECT COUNT(*) as countProduits FROM Produits P JOIN Catalogues C ON C.id=P.idCatalogue WHERE C.nom = ?");
 			pst.setString(1,nom);
-			ResultSet res = pst.executeQuery();
-			while(res.next()) {
-				i++;
-			} 
+			res = pst.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return i;
+		try {
+			res.next();
+			result = res.getInt("countProduits");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override

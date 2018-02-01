@@ -38,6 +38,7 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		if (controllerProduit.suppressionProduit(combo.getSelectedItem().toString())){
 			combo.removeItem(combo.getSelectedItem());
 		}
+		this.dispose();
 	}
 
 }

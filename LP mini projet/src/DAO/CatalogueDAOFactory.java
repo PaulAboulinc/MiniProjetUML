@@ -11,4 +11,9 @@ public class CatalogueDAOFactory extends I_CatalogueDAOFactory {
 	public I_CatalogueDAO createCatalogueDAO() {
 		return new CatalogueDAO();
 	}
+
+	@Override
+	public I_CategorieDAO createCategorieDAO() {
+		return new CategorieDAO();
+	}
 }

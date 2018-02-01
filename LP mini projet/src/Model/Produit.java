@@ -6,10 +6,13 @@ public class Produit implements I_Produit {
 
 	private int quantiteStock;
 	private String nom;
+	private int idCategorie;
 	private double prixUnitaireHT;
-	private static double tauxTVA=0.2;
+	private float tauxTVA;
 	
-	public Produit (String nom, Double prixUnitaireHT, int qte) {
+	public Produit (String nom, Double prixUnitaireHT, int qte, int idCat, float tva) {
+		this.tauxTVA = tva;
+		this.idCategorie = idCat;
 		this.quantiteStock = qte;
 		this.nom = nom;
 		this.prixUnitaireHT = prixUnitaireHT;
@@ -41,22 +44,28 @@ public class Produit implements I_Produit {
 		return this.quantiteStock;
 	}
 	@Override
+	public int getIdCategorie() {
+		return idCategorie;
+	}
+	@Override
+	public float getTauxTVA() {
+		return tauxTVA;
+	}
+	@Override
 	public double getPrixUnitaireHT() {
 		return this.prixUnitaireHT;
 	}
 	@Override
 	public double getPrixUnitaireTTC() {
-		return this.prixUnitaireHT*(Produit.tauxTVA+1);
+		return this.prixUnitaireHT*(this.getTauxTVA()+1);
 	}
 	@Override
 	public double getPrixStockTTC() {
 		return this.quantiteStock*this.getPrixUnitaireTTC();
 	}
-	
 	private String getPrixUnitaireHTEnFormatString () {
 		return getPrixEnFormatString(this.getPrixUnitaireHT());
 	}
-	
 	private String getPrixUnitaireTTCEnFormatString () {
 		return getPrixEnFormatString(this.getPrixUnitaireTTC());
 	}
@@ -74,4 +83,5 @@ public class Produit implements I_Produit {
 		String prixUnitaireTTC = getPrixUnitaireTTCEnFormatString();
 		return this.getNom()+" - prix HT : "+prixUnitaireHT+" € - prix TTC : "+prixUnitaireTTC+ " € - quantité en stock : "+this.getQuantite()+"\n";
 	}
+
 }

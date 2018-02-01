@@ -16,18 +16,17 @@ public class ProduitDAO implements I_ProduitDAO{
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
 	private int idCatalogue;
+	private I_CategorieDAO categorieDAO;
 	
 	public ProduitDAO (String nom) {
+		categorieDAO = CatalogueDAOFactory.getInstance().createCategorieDAO();
 		ConnexionBD connexionBD = ConnexionBD.getInstance();
 		cn = connexionBD.getConnection();
 		idCatalogue = getIdCatalogue(nom);
 		
-		String tempSQL = "SELECT nom,prix,quantite,idCatalogue FROM Produits WHERE idCatalogue = ? ORDER BY id";
+		String tempSQL = "SELECT nom,prix,quantite,idCatalogue,idCategorie FROM Produits WHERE idCatalogue = ? ORDER BY id";
 		
 		try {
-			//pst = (PreparedStatement) cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			//pst = cn.prepareStatement("SELECT nom,prix,quantite,idCatalogue FROM Produits WHERE idCatalogue = ? ORDER BY id");
-			//pst.setInt(1,idCatalogue);
 			pst = cn.prepareStatement(tempSQL,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			pst.setInt(1, idCatalogue);
 			rs = pst.executeQuery();
@@ -56,6 +55,7 @@ public class ProduitDAO implements I_ProduitDAO{
 			rs.updateDouble("prix", p.getPrixUnitaireHT());
 			rs.updateInt("quantite", p.getQuantite());
 			rs.updateInt("idCatalogue", idCatalogue);
+			rs.updateInt("idCategorie", p.getIdCategorie());
 			rs.insertRow();
 			rs = pst.executeQuery();
 			return true;
@@ -72,7 +72,8 @@ public class ProduitDAO implements I_ProduitDAO{
 		try {
 			rs.beforeFirst();
 			while (rs.next()) {
-				p = CatalogueFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));
+				float tauxTVA = categorieDAO.getTauxTVAById(rs.getInt("idCategorie"));
+				p = CatalogueFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"), rs.getInt("idCategorie"), tauxTVA);
 				listProduits.add(p);
 			}
 		} catch (SQLException e) {
@@ -87,7 +88,8 @@ public class ProduitDAO implements I_ProduitDAO{
 			rs.beforeFirst();
 			while(rs.next()) {
 				if (nom.equals(rs.getString("nom"))) {
-					p = CatalogueFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"));					
+					float tauxTVA = categorieDAO.getTauxTVAById(rs.getInt("idCategorie"));
+					p = CatalogueFactory.createProduit(rs.getString("nom"), rs.getDouble("prix"), rs.getInt("quantite"), rs.getInt("idCategorie"), tauxTVA);					
 				}
 			}
 		} catch (SQLException e) {

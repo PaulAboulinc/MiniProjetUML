@@ -3,6 +3,7 @@ package Controller;
 import Model.I_Catalogue;
 import Model.I_CatalogueManager;
 import Model.CatalogueFactory;
+import Vue.FenetreAffichage;
 import Vue.FenetrePrincipale;
 
 public class ControllerCatalogue {
@@ -14,6 +15,10 @@ public class ControllerCatalogue {
 	}
 	
 	public boolean ajouterCatalogue (String nomCatalogue) {
+		if (nomCatalogue.trim().isEmpty()) {
+			new FenetreAffichage("Le nom du catalogue ne peut pas être vide !");
+			return false;
+		}
 		return catalogueManager.ajouterCatalogue(nomCatalogue);
 	}
 	
@@ -27,7 +32,8 @@ public class ControllerCatalogue {
 			ControllerProduit cProduit = new ControllerProduit(catalogue);
 			ControllerAchatVente cAchatVente = new ControllerAchatVente(catalogue);
 			ControllerStock cStock = new ControllerStock(catalogue);
-			new FenetrePrincipale(cProduit,cAchatVente,cStock);
+			ControllerCategorie cCategorie = new ControllerCategorie();
+			new FenetrePrincipale(cCategorie,cProduit,cAchatVente,cStock);
 			return true;
 		}
 		return false;

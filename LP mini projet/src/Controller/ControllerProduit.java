@@ -13,15 +13,15 @@ public class ControllerProduit  {
 		catalogue = c;
 	}
 	
-	public boolean creationProduit(String nomFormulaire, String prixFormulaire, String quantiteFormulaire){
+	public boolean creationProduit(String nomFormulaire, String prixFormulaire, String quantiteFormulaire, String nomCategorie){
 		if (!isValeurDuFormulaireValide(nomFormulaire, prixFormulaire, quantiteFormulaire)) {
 			return false;
 		}	
 		int quantite = Integer.parseInt(quantiteFormulaire);
 		double prix = Double.parseDouble(prixFormulaire);
 		String nom = nomFormulaire.trim();
-		boolean isProduitAjoute = catalogue.addProduit(nom,prix,quantite);
-		if(isProduitAjoute == true){
+		boolean isProduitAjoute = catalogue.addProduit(nom,prix,quantite,nomCategorie);
+		if(isProduitAjoute){
 			new FenetreAffichage("Le produit a été ajouté ! \n");
 			return true;
 		}else{

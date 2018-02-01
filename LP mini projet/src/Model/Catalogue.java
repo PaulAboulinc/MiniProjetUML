@@ -5,34 +5,42 @@ import java.util.Collections;
 import java.util.List;
 
 import DAO.I_CatalogueDAOFactory;
+import DAO.I_CategorieDAO;
 import DAO.I_ProduitDAO;
 
 public class Catalogue implements I_Catalogue{
 	
 	private I_ProduitDAO produitDAO;
+	private I_CategorieDAO categorieDAO;
 	private String nomCatalogue;
 	
 	public Catalogue (String nom) {
 		nomCatalogue = nom;
+		categorieDAO = I_CatalogueDAOFactory.getInstance().createCategorieDAO();
 		produitDAO = I_CatalogueDAOFactory.getInstance().createProduitDAO(nomCatalogue);
 	}
 	
 	@Override
 	public boolean addProduit(I_Produit produit) {
-		if (produit != null) {
-			return addProduit(produit.getNom(), produit.getPrixUnitaireHT(), produit.getQuantite());
+		if (Arrays.asList(getNomProduits()).contains(produit.getNom().trim()) || produit.getQuantite()<0 || produit.getPrixUnitaireHT()<=0) {
+			return false;
 		}
-		return false;
+		String nom = produit.getNom().trim();
+		nom = nom.replace("\t", " ");
+		I_Produit p = CatalogueFactory.createProduit(nom,  produit.getPrixUnitaireHT(), produit.getQuantite(), produit.getIdCategorie(), produit.getTauxTVA());
+		return produitDAO.createProduit(p);
 	}
 	
 	@Override
-	public boolean addProduit(String n, double prix, int qte) {
+	public boolean addProduit(String n, double prix, int qte, String nomCategorie) {
 		if (Arrays.asList(getNomProduits()).contains(n.trim()) || qte<0 || prix<=0) {
 			return false;
-		}	
+		}
+		int idCategorie = categorieDAO.getIdCategorieByName(nomCategorie);
+		float tauxTVA = categorieDAO.getTauxTVAById(idCategorie);
 		String nom = n.trim();
 		nom = nom.replace("\t", " ");
-		I_Produit produit = CatalogueFactory.createProduit(nom,  prix , qte);
+		I_Produit produit = CatalogueFactory.createProduit(nom,  prix, qte, idCategorie, tauxTVA);
 		return produitDAO.createProduit(produit);
 	}
 
